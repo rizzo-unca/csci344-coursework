@@ -6,6 +6,7 @@ body * {
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
+    
 }
 
 /*
@@ -15,6 +16,11 @@ justify-content and align-items properties to center the card.
 */
 main {
     min-height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
 }
 
 /*
