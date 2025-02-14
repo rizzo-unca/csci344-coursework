@@ -3,18 +3,18 @@ let canvasHeight = window.innerHeight;
 
 function setup() {
     createCanvas(canvasWidth, canvasHeight);
-    noLoop(); // Ensures the art is generated once
+    noLoop();
     drawAlgorithmicArt();
 }
 
 function drawAlgorithmicArt() {
-    let bgColor = color(random(255), random(255), random(255)); // Random background color
+    let bgColor = color(random(255), random(255), random(255));
     background(bgColor);
     
-    let styleType = int(random(3)); // Randomly select a style
-    let uniformColor = color(random(255), random(255), random(255)); // Single color for some styles
+    let styleType = int(random(3));
+    let uniformColor = color(random(255), random(255), random(255));
     
-    for (let i = 0; i < 20; i++) { // Loop to generate multiple shapes
+    for (let i = 0; i < 20; i++) { 
         let x = random(width);
         let y = random(height);
         let size = random(20, 100);
@@ -27,7 +27,7 @@ function drawAlgorithmicArt() {
         if (shapeType === "circle") {
             circle(x, y, size);
         } else if (shapeType === "square") {
-            square(x - size / 2, y - size / 2, size); // Centering square
+            square(x - size / 2, y - size / 2, size);
         } else if (shapeType === "plus") {
             rect(x - size / 4, y - size / 2, size / 2, size);
             rect(x - size / 2, y - size / 4, size, size / 2);
