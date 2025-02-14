@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>HW02 Starter Code</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navigation (fixed) -->
+    <header class="top-nav">
+        <h1 class="logo">
+            Photo App
+        </h1>
+        <nav>
+            <p>Username</p>
+            <p>Sign Out</p>
+        </nav>
+    </header>
+
+    <!-- Right Panel -->
+    <aside class="suggestions-panel">
+        <div class="user-profile">
+            <img src="https://picsum.photos/70/70" alt="User Profile" class="profile-picture">
+            <p class="username">Current Logged in User</p>
+        </div>
+
+        <p class="suggestions-title">Suggested Accounts</p>
+        <div class="suggestions-list">
+
+            <!-- Suggested Account 1 -->
+            <div class="suggestion">
+                <img src="https://picsum.photos/50/50" alt="account 1" class="suggestion-pic">
+                <div class="suggestion-info">
+                    <p class="suggestion-username">Suggested Account 1</p>
+                    <p class="suggested-for-you">Suggested for you</p>
+                </div>
+                <a href="#" class="follow-link">Follow</a>
+            </div>
+
+            <!-- Suggested Account 2 -->
+            <div class="suggestion">
+                <img src="https://picsum.photos/50/50" alt="account 1" class="suggestion-pic">
+                <div class="suggestion-info">
+                    <p class="suggestion-username">Suggested Account 2</p>
+                    <p class="suggested-for-you">Suggested for you</p>
+                </div>
+                <a href="#" class="follow-link">Follow</a>
+            </div>
+
+            <!-- Suggested Account 3 -->
+            <div class="suggestion">
+                <img src="https://picsum.photos/50/50" alt="account 1" class="suggestion-pic">
+                <div class="suggestion-info">
+                    <p class="suggestion-username">Suggested Account 3</p>
+                    <p class="suggested-for-you">Suggested for you</p>
+                </div>
+                <a href="#" class="follow-link">Follow</a>
+            </div>
+
+            <!-- Suggested Account 4 -->
+            <div class="suggestion">
+                <img src="https://picsum.photos/50/50" alt="account 1" class="suggestion-pic">
+                <div class="suggestion-info">
+                    <p class="suggestion-username">Suggested Account 4</p>
+                    <p class="suggested-for-you">Suggested for you</p>
+                </div>
+                <a href="#" class="follow-link">Follow</a>
+            </div>
+
+            <!-- Suggested Account 5 -->
+            <div class="suggestion">
+                <img src="https://picsum.photos/50/50" alt="account 1" class="suggestion-pic">
+                <div class="suggestion-info">
+                    <p class="suggestion-username">Suggested Account 5</p>
+                    <p class="suggested-for-you">Suggested for you</p>
+                </div>
+                <a href="#" class="follow-link">Follow</a>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- Main Panel (fixed) -->
+    <main>
+
+
+        
+        <section class="news-feed">
+            <!-- Stories -->
+            <header class="stories">
+                <!-- Story 1 -->
+                <div class ="story">
+                    <img src="https://picsum.photos/50/50" alt="Story 1" class="story-pic">
+                    <p class="story-username">User 1</p>
+                </div>
+
+                <!-- Story 2 -->
+                <div class ="story">
+                    <img src="https://picsum.photos/50/50" alt="Story 1" class="story-pic">
+                    <p class="story-username">User 2</p>
+                </div>
+
+                <!-- Story 3 -->
+                <div class ="story">
+                    <img src="https://picsum.photos/50/50" alt="Story 1" class="story-pic">
+                    <p class="story-username">User 3</p>
+                </div>
+
+                <!-- Story 4 -->
+                <div class ="story">
+                    <img src="https://picsum.photos/50/50" alt="Story 1" class="story-pic">
+                    <p class="story-username">User 4</p>
+                </div>
+
+                <!-- Story 5 -->
+                <div class ="story">
+                    <img src="https://picsum.photos/50/50" alt="Story 1" class="story-pic">
+                    <p class="story-username">User 5</p>
+                </div>
+            </header>
+
+
+            <!-- Posts -->
+            <section class="post">
+                <div class="post-header">
+                    <!-- Username -->
+                    <div class="post-user">
+                        <p class="post-username">Username</p>
+                    </div>
+
+                    <!-- Options -->
+                     <div class="post-options">
+                        <i class="fa-solid fa-ellipsis"></i>
+                     </div>
+                </div>
+                 <!-- Post Image -->
+                <img src="https://picsum.photos/500/500" alt="Post Image" class="post-image">
+                <!-- post action icons -->
+                <div class="post-actions">
+                    <!-- left actions -->
+                    <div class="align-actions-left">
+                        <i class="fa-regular fa-heart"></i>
+                        <i class="fa-regular fa-comments"></i>
+                        <i class="fa-regular fa-paper-plane"></i>
+                    </div>
+                    <!-- right actions -->
+                    <div class="align-actions-right">
+                        <i class="fa-regular fa-bookmark"></i>
+                    </div>
+                    <!-- likes -->
+                    <p class="post-likes">68,419 likes</p>
+                    <!-- caption -->
+                    <div class="post-caption">
+                        <span class="post-caption-username">Username</span> This is a caption. <a href="#" class =post-more>more</a>
+                    </div>
+                    <!-- Comments -->
+                     <div class="post-comments">
+                        <div class="post-comment">
+                            <span class="post-commenter-username">Username</span> This is comment text
+                        </div>
+                        <div class="post-comments">
+                            <span class="post-commenter-username">Username</span> This is more comment text
+                        </div>
+                     </div>
+                     <div class="post-add-comment">
+                        <i class="fa-regular fa-face-smile"></i>
+                        <input type="text" placeholder="Add a comment..." class="post-add-comment-input">
+                        <a href="#" class="post-add-comment-link">Post</a>
+                     </div>
+                </div>
+
+            </section>
+            <section class="post">
+                <!-- Post Image -->
+                <img src="https://picsum.photos/500/500" alt="Post Image" class="post-image">
+                <!-- post action icons -->
+                <div class="post-actions">
+                    <!-- left actions -->
+                    <div class="align-actions-left">
+                        <i class="fa-regular fa-heart"></i>
+                        <i class="fa-regular fa-comments"></i>
+                        <i class="fa-regular fa-paper-plane"></i>
+                    </div>
+                    <!-- right actions -->
+                    <div class="align-actions-right">
+                        <i class="fa-regular fa-bookmark"></i>
+                    </div>
+                    <!-- likes -->
+                    <p class="post-likes">68,419 likes</p>
+                    <!-- caption -->
+                    <div class="post-caption">
+                        <span class="post-caption-username">Username</span> This is a caption. <a href="#" class =post-more>more</a>
+                    </div>
+                    <!-- Comments -->
+                     <div class="post-comments">
+                        <div class="post-comment">
+                            <span class="post-commenter-username">Username</span> This is comment text
+                        </div>
+                        <div class="post-comments">
+                            <span class="post-commenter-username">Username</span> This is more comment text
+                        </div>
+                     </div>
+                     <div class="post-add-comment">
+                        <i class="fa-regular fa-face-smile"></i>
+                        <input type="text" placeholder="Add a comment..." class="post-add-comment-input">
+                        <a href="#" class="post-add-comment-link">Post</a>
+                     </div>
+                </div>
+            </section>
+            <section class="post">
+                <!-- Post Image -->
+                <img src="https://picsum.photos/500/500" alt="Post Image" class="post-image">
+                <!-- post action icons -->
+                <div class="post-actions">
+                    <!-- left actions -->
+                    <div class="align-actions-left">
+                        <i class="fa-regular fa-heart"></i>
+                        <i class="fa-regular fa-comments"></i>
+                        <i class="fa-regular fa-paper-plane"></i>
+                    </div>
+                    <!-- right actions -->
+                    <div class="align-actions-right">
+                        <i class="fa-regular fa-bookmark"></i>
+                    </div>
+                    <!-- likes -->
+                    <p class="post-likes">68,419 likes</p>
+                    <!-- caption -->
+                    <div class="post-caption">
+                        <span class="post-caption-username">Username</span> This is a caption. <a href="#" class =post-more>more</a>
+                    </div>
+                    <!-- Comments -->
+                     <div class="post-comments">
+                        <div class="post-comment">
+                            <span class="post-commenter-username">Username</span> This is comment text
+                        </div>
+                        <div class="post-comments">
+                            <span class="post-commenter-username">Username</span> This is more comment text
+                        </div>
+                     </div>
+                     <div class="post-add-comment">
+                        <i class="fa-regular fa-face-smile"></i>
+                        <input type="text" placeholder="Add a comment..." class="post-add-comment-input">
+                        <a href="#" class="post-add-comment-link">Post</a>
+                     </div>
+                </div>
+            </section >
+            <section class="post">
+                <!-- Post Image -->
+                <img src="https://picsum.photos/500/500" alt="Post Image" class="post-image">
+                <!-- post action icons -->
+                <div class="post-actions">
+                    <!-- left actions -->
+                    <div class="align-actions-left">
+                        <i class="fa-regular fa-heart"></i>
+                        <i class="fa-regular fa-comments"></i>
+                        <i class="fa-regular fa-paper-plane"></i>
+                    </div>
+                    <!-- right actions -->
+                    <div class="align-actions-right">
+                        <i class="fa-regular fa-bookmark"></i>
+                    </div>
+                    <!-- likes -->
+                    <p class="post-likes">68,419 likes</p>
+                    <!-- caption -->
+                    <div class="post-caption">
+                        <span class="post-caption-username">Username</span> This is a caption. <a href="#" class =post-more>more</a>
+                    </div>
+                    <!-- Comments -->
+                     <div class="post-comments">
+                        <div class="post-comment">
+                            <span class="post-commenter-username">Username</span> This is comment text
+                        </div>
+                        <div class="post-comments">
+                            <span class="post-commenter-username">Username</span> This is more comment text
+                        </div>
+                     </div>
+                     <div class="post-add-comment">
+                        <i class="fa-regular fa-face-smile"></i>
+                        <input type="text" placeholder="Add a comment..." class="post-add-comment-input">
+                        <a href="#" class="post-add-comment-link">Post</a>
+                     </div>
+                </div>
+            </section>
+        </section>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,290 @@
+body * {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #F4F4F4;
+}
+
+/* Top navigation bar */
+.top-nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: white;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.top-nav nav {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.top-nav nav p {
+    margin-left: 20px;
+}
+
+.post {
+    min-height: 300px;
+    border: solid 1px black;
+    margin-bottom: 50px;
+}
+
+.stories {
+    min-height: 100px;
+    border: solid 2px black;
+    margin-bottom: 50px;
+}
+
+/* suggestions panel */
+.suggestions-panel{
+    position: fixed;
+    top: 100px;
+    left: 65vw;
+    background-color: lightgrey;
+    min-height: 80vh;
+    width: calc(35vw - 30px);
+    padding: 20px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.suggestions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.username {
+    font-weight: bold;
+}
+
+/* Suggestions CSS */
+.suggestion {
+    display: flex;
+    align-items: center;
+}
+
+.suggestion-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.suggestion-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.suggestion-username {
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.suggest-for {
+    font-size: 0.8em;
+    color: #888;
+}
+
+.follow-link {
+    color: #405DE6;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #405DE6;
+}
+
+main {
+    width: calc(60vw - 30px);
+    margin-top: 23px;
+    margin-left: 5vw;
+}
+
+/* story CSS */
+.stories {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px;
+}
+
+.story {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.story-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: -10%;
+}
+
+.story-username{
+    font-size: 0.8em;
+    white-space: nowrap;
+}
+
+/* Posts CSS */
+.post {
+    border: 1px solid #ccc; /* Light border for the post card */
+    margin-bottom: 20px; /* Space between posts */
+    border-radius: 5px; /* Optional: Rounded corners */
+    overflow: hidden; /* Prevents image from overflowing */
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.post-user {
+    display: flex;
+    align-items: center;
+}
+
+.post-username {
+    font-weight: bold;
+}
+
+.post-options-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer; /* Make the icon clickable */
+}
+
+.post-image {
+    width: 100%;
+    display: block; /* Prevents a small space below the image */
+}
+
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.post-actions-left {
+    display: flex;
+    align-items: center;
+}
+.post-actions-right {
+    display: flex;
+    align-items: center;
+}
+
+.post-action-icon {
+    width: 25px;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    margin-right: 10px; /* Space between icons */
+    cursor: pointer;
+}
+
+.post-actions-left .post-action-icon:last-child{
+    margin-right: 0;
+}
+
+.post-action-icon {
+    display: block;
+}
+
+.post-likes {
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+.post-caption {
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+.post-caption-username {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.post-more {
+    color: #007bff; /* Blue link color */
+    text-decoration: none;
+}
+
+.post-comments {
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+.post-comment {
+    margin-bottom: 5px;
+}
+
+.post-comment-username {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.post-add-comment {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.post-add-comment-icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+.post-add-comment-input {
+    flex-grow: 1;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f0f0f0; /* Light gray background */
+}
+
+.post-add-comment-link {
+    color: #007bff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+/* changing suggestions to hide when web page is smaller */
+@media (max-width: 800px) {
+    .suggestions-panel {
+        display: none;
+    }
+
+    main {
+        width: auto;
+        margin-left: 2vw;
+        margin-right: 2vw;
+    }
+}

@@ -24,6 +24,21 @@ body{
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+.homework-links {
+    font-family: "Arial";
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: white;
+    text-decoration: none;
+    background-color: #01796f;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: ponter;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 .tutorial-links a:hover{
     color: black;
     box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
