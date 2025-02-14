@@ -191,11 +191,11 @@ main {
 
 .post-actions-left {
     display: flex;
-    align-items: center;
+    justify-content: center;
 }
 .post-actions-right {
     display: flex;
-    align-items: center;
+    justify-content: center;
 }
 
 .post-action-icon {
@@ -205,10 +205,6 @@ main {
     padding: 0;
     margin-right: 10px; /* Space between icons */
     cursor: pointer;
-}
-
-.post-actions-left .post-action-icon:last-child{
-    margin-right: 0;
 }
 
 .post-action-icon {
