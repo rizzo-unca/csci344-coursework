@@ -7,6 +7,10 @@ body {
     background: lightgrey;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Comfortaa', cursive;
+}
+
 /* Top navigation bar */
 .top-nav {
     position: sticky;
@@ -41,7 +45,7 @@ body {
 .stories {
     min-height: 100px;
     border: solid 2px black;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 /* suggestions panel */
@@ -59,6 +63,7 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    font-family: 'Comfortaa', cursive;
 }
 
 .profile-picture {
@@ -87,6 +92,7 @@ body {
 .suggestion {
     display: flex;
     align-items: center;
+    margin-bottom: 5px;
 }
 
 .suggestion-pic {
@@ -106,12 +112,15 @@ body {
     display: flex;
     margin-top: -3px;
     margin-bottom: 5px;
+    font-family: 'Comfortaa', cursive;
+    font-size: 12px;
 }
 
 .suggestion-username {
     font-weight: bold;
     margin-bottom: 0px;
     margin-top: 7px;
+    font-family: 'Comfortaa', cursive;
 }
 
 .suggest-for {
@@ -125,6 +134,7 @@ body {
     padding: 5px 10px;
     border-radius: 5px;
     border: 1px solid #405DE6;
+    margin-left: 20px;
 }
 
 .suggestions-title {
@@ -188,6 +198,7 @@ main {
 .post-user {
     display: flex;
     align-items: center;
+    font-family: 'Comfortaa', cursive;
 }
 
 .post-username {
@@ -196,6 +207,7 @@ main {
 
 .post-commenter-username {
     font-weight: bold;
+    font-family: sans-serif bold;
 }
 
 .post-options-icon {
@@ -246,6 +258,8 @@ main {
 .post-likes {
     padding: 0 10px;
     margin-bottom: 10px;
+    font-weight: bold;
+    font-family: sans-serif;
 }
 
 .post-caption {
