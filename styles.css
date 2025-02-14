@@ -14,3 +14,12 @@ body{
     color: orange;
     text-decoration: none;
 }
+
+.tutorial-links a.hover{
+    color: red;
+    text-decoration: underline;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
