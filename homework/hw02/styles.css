@@ -4,7 +4,7 @@ body * {
 
 body {
     margin: 0;
-    background: #F4F4F4;
+    background: lightgrey;
 }
 
 /* Top navigation bar */
@@ -61,6 +61,11 @@ body {
     margin-bottom: 20px;
 }
 
+.profile-picture {
+    display: flex;
+    margin-right: 10px;
+}
+
 .profile-pic {
     width: 50px;
     height: 50px;
@@ -97,9 +102,16 @@ body {
     justify-content: center;
 }
 
+.suggested-for-you {
+    display: flex;
+    margin-top: -3px;
+    margin-bottom: 5px;
+}
+
 .suggestion-username {
     font-weight: bold;
     margin-bottom: 0px;
+    margin-top: 7px;
 }
 
 .suggest-for {
@@ -115,6 +127,15 @@ body {
     border: 1px solid #405DE6;
 }
 
+.suggestions-title {
+    font-size: 20px;
+    color: #706c6c;
+}
+
+
+
+
+
 main {
     width: calc(60vw - 30px);
     margin-top: 23px;
@@ -127,6 +148,7 @@ main {
     gap: 10px;
     overflow-x: auto;
     padding: 10px;
+    background-color: white;
 }
 
 .story {
@@ -149,10 +171,11 @@ main {
 
 /* Posts CSS */
 .post {
-    border: 1px solid #ccc; /* Light border for the post card */
-    margin-bottom: 20px; /* Space between posts */
-    border-radius: 5px; /* Optional: Rounded corners */
-    overflow: hidden; /* Prevents image from overflowing */
+    border: 1px solid #ccc; 
+    margin-bottom: 20px;
+    border-radius: 5px; 
+    overflow: hidden; 
+    background-color: white;
 }
 
 .post-header {
@@ -171,31 +194,40 @@ main {
     font-weight: bold;
 }
 
+.post-commenter-username {
+    font-weight: bold;
+}
+
 .post-options-icon {
     width: 20px;
     height: 20px;
-    cursor: pointer; /* Make the icon clickable */
+    cursor: pointer; 
 }
 
 .post-image {
     width: 100%;
-    display: block; /* Prevents a small space below the image */
+    display: block; 
 }
 
 .post-actions {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 8px;
 }
 
-.post-actions-left {
+.align-actions-left {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    height: 16px;
+    width: 70px;
 }
-.post-actions-right {
+.align-actions-right {
     display: flex;
-    justify-content: center;
+    justify-content: right;
+    height: 0px;
 }
 
 .post-action-icon {
@@ -203,7 +235,7 @@ main {
     height: 25px;
     margin: 0;
     padding: 0;
-    margin-right: 10px; /* Space between icons */
+    margin-right: 10px; 
     cursor: pointer;
 }
 
@@ -227,7 +259,7 @@ main {
 }
 
 .post-more {
-    color: #007bff; /* Blue link color */
+    color: #007bff; 
     text-decoration: none;
 }
 
@@ -247,7 +279,7 @@ main {
 
 .post-add-comment {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     padding: 10px;
     border-top: 1px solid #ccc;
 }
@@ -263,7 +295,7 @@ main {
     border: none;
     padding: 5px;
     border-radius: 5px;
-    background-color: #f0f0f0; /* Light gray background */
+    background-color: #f0f0f0; 
 }
 
 .post-add-comment-link {
