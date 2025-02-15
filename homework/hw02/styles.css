@@ -172,6 +172,8 @@ main {
     height: 60px;
     border-radius: 50%;
     margin-bottom: -10%;
+    border: 2px solid lightgrey;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .story-username{
@@ -328,5 +330,9 @@ main {
         width: auto;
         margin-left: 2vw;
         margin-right: 2vw;
+    }
+
+    .post{
+        margin-bottom: 5px;
     }
 }
