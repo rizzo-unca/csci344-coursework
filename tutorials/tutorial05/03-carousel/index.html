@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="index.js" defer></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    "
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <title>Carousel</title>
 </head>
 
@@ -22,24 +21,31 @@
     <main>
         <h1>Carousel Exercise</h1>
         <div id="container">
-            <button onclick="moveCarousel('backward')">Back</button>
+            <!-- Button -->
+            <button onclick="moveCarousel('backward')"><i class="fa-regular fa-square-caret-left"></i></button>
             <div id="carousel-track">
+            <!-- Button end -->
+
                 <!-- 
                  Hidden window to to hold all of the items. 
                  Make sure it's width is wide enough to hold all of the slides!
                  -->
                 <div id="carousel-overflow-container">
-                    <img src="images/img1.jpg" class="carousel-item" />
-                    <img src="images/img2.jpg" class="carousel-item" />
-                    <img src="images/img3.jpg" class="carousel-item" />
-                    <img src="images/img4.jpg" class="carousel-item" />
-                    <div class="carousel-item">A</div>
-                    <div class="carousel-item">B</div>
-                    <div class="carousel-item">C</div>
-                    <div class="carousel-item">D</div>
+                    <img src="images/img1.PNG" class="carousel-item" />
+                    <img src="images/img2.PNG" class="carousel-item" />
+                    <img src="images/img3.PNG" class="carousel-item" />
+                    <img src="images/img4.PNG" class="carousel-item" />
+                    <img src="images/img5.PNG" class="carousel-item" />
+                    <img src="images/img6.PNG" class="carousel-item" />
+                    <img src="images/img7.PNG" class="carousel-item" />
+                    <img src="images/img8.PNG" class="carousel-item" />
+
                 </div>
             </div>
-            <button onclick="moveCarousel('forward')">Forward</button>
+            <!-- Button -->
+            <button onclick="moveCarousel('forward')"><i class="fa-regular fa-square-caret-right"></i></button>
+            <!-- Button End -->
+
         </div>
         <p>Credit: Adapted from <a href="https://www.youtube.com/watch?v=Zd8170gwwmc"
                 target="_blank">https://www.youtube.com/watch?v=Zd8170gwwmc</a></p>
