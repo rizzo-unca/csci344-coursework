@@ -125,6 +125,34 @@ h1 {
     color: #EFDEC2;
 }
 
+/***************/
+/* Forest Theme */
+/***************/
+
+.forest header {
+    background:  #5d4037 ;
+    color:   #d7ccc8  ;
+}
+
+.forest button {
+    color:  #5d4037 ;
+}
+
+.forest .content {
+    background:   #d4efdf  ;
+    color: green;
+}
+
+.forest header,
+.forest nav {
+    border-bottom: solid 1px #776577;
+}
+
+.forest .mynavbar {
+    background-color:  #145a32 ;
+    color: lightgrey;
+}
+
 
 /***********************/
 /* High Contrast Theme */

@@ -21,7 +21,8 @@ main {
 }
 
 #container {
-    background: #F0F0F0;
+    /* here to change carousel background color */
+    background: transparent;
     height: 350px;
     width: 1000px;
     display: flex;
