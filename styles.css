@@ -1,20 +1,47 @@
-body{
+body {
     background: rgb(34,193,195);
     background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%); 
     min-height: 100vh;
-
+    font-family: Arial, sans-serif; /* Added a default font */
+    display: flex;
+    flex-direction: column; /* Use flexbox for overall layout */
+    align-items: center; /* Center horizontally */
+    margin: 0; /* Remove default margins */
 }
 
-.tutorial-links{
+.header {
+    padding: 60px;
+    text-align: center;
+    font-size: 30px;
+    color: white; /* Header text color */
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* Stack sections vertically */
+    align-items: center; /* Center horizontally within the container */
+    width: 80%; /* Adjust width as needed */
+    max-width: 900px; /* Set a maximum width */
+}
+
+.links-section {
+    margin-bottom: 30px; /* Space between sections */
+    text-align: center; /* Center section titles */
+}
+
+.links-section h2 {
+    color: white;
+    margin-bottom: 15px;
+}
+
+.tutorial-links, .homework-links, .quiz-links {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
 }
 
-.tutorial-links a{
-    font-family: "Arial";
-    font-size: 30px;
+.tutorial-links a, .homework-links a, .quiz-links a {
+    font-size: 24px; /* Slightly reduced font size */
     margin-bottom: 10px;
     color: white;
     text-decoration: none;
@@ -24,43 +51,11 @@ body{
     cursor: pointer;
     transition: background-color 0.3s ease;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3); /* Add a semi-transparent background */
 }
 
-.homework-links {
-    font-family: "Arial";
-    font-size: 30px;
-    margin-bottom: 10px;
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: ponter;
-    transition: background-color 0.3s ease;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.quiz-links {
-    font-family: "Arial";
-    font-size: 30px;
-    margin-bottom: 10px;
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: ponter;
-    transition: background-color 0.3s ease;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.tutorial-links a:hover{
+.tutorial-links a:hover, .homework-links a:hover, .quiz-links a:hover {
     color: black;
+    background-color: white; /* Change background on hover */
     box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
-}
-
-.header {
-    padding: 60px;
-    text-align: center;
-    font-size: 30px;
 }
