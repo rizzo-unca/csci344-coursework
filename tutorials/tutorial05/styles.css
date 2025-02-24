@@ -1,0 +1,37 @@
+body {
+    background: #DE6262;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFB88C, #DE6262);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFB88C, #DE6262); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    padding-top: 30px;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    /* linear-gradient for nav bar background */
+    /* background: linear-gradient(to right, #1A2421, #043927); */
+    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);    color: black;
+}
+
+nav ul {
+    list-style: none; /*removes bullet points */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around; /* even link distribution */
+}
+
+nav li {
+    padding: 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+}
+
+nav a:hover {
+    background-color: #555; /* play wth this to make the colors different */
+}
+

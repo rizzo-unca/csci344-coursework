@@ -1,0 +1,79 @@
+body * {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+}
+
+main {
+    padding-top: 50px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#container {
+    background: #F0F0F0;
+    height: 350px;
+    width: 1000px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+#carousel-track {
+    width: 800px;
+    height: 100%;
+    overflow: hidden;
+}
+
+#carousel-overflow-container {
+    /* Make it wide so that is can hold all of the slides w/o squishing them */
+    width: 10000px;
+    height: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.carousel-item {
+    object-fit: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 400px;
+    background: #333;
+    color: #FFF;
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.mynavbar {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10; /*making sure this is always at the top!*/
+    display: flex;
+    justify-content: center;
+}
+
+.mynavbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.mynavbar a {
+    text-decoration: none;
+    color: white;
+}
