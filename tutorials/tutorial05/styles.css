@@ -1,38 +1,66 @@
 body {
-    background: #DE6262;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #FFB88C, #DE6262);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #FFB88C, #DE6262); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    padding-top: 30px;
+    background: #DE6262;
+    background: -webkit-linear-gradient(to right, #FFB88C, #DE6262);
+    background: linear-gradient(to right, #FFB88C, #DE6262);
+    font-family: Arial, sans-serif; /* Added a default font */
+    margin: 0; /* Remove default margins */
+    display: flex;
+    flex-direction: column; /* Use flexbox for layout */
+    min-height: 100vh; /* Ensure body takes up full viewport height */
 }
 
 nav {
     position: fixed;
     top: 0;
     width: 100%;
-    /* linear-gradient for nav bar background */
-    /* background: linear-gradient(to right, #1A2421, #043927); */
-    background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%); 
-
+    background: linear-gradient(90deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+    padding: 10px 0; /* Add some padding to the nav */
+    z-index: 10; /* Ensure nav is above other content */
 }
 
 nav ul {
-    list-style: none; /*removes bullet points */
+    list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: space-around; /* even link distribution */
+    justify-content: space-around;
+    align-items: center; /* Vertically center the links */
 }
 
 nav li {
-    padding: 10px;
+    padding: 0 15px; /* Adjust padding around list items */
 }
 
 nav a {
     text-decoration: none;
-    color: black;
+    color: white; /* Changed link color to white */
+    padding: 8px 16px; /* Add padding around link text */
+    border-radius: 5px; /* Add rounded corners to links */
+    transition: background-color 0.3s ease; /* Add a transition for hover effect */
 }
 
 nav a:hover {
-    background-color: #555; /* play wth this to make the colors different */
+    background-color: rgba(0, 0, 0, 0.2); /* Add a semi-transparent background on hover */
+    color: black;
 }
 
+.content {
+    padding: 80px 20px; /* Add padding to the content area, adjust top padding to account for fixed nav */
+    text-align: center; /* Center the text within the content area */
+    flex: 1; /* Allow content to expand and fill available space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.introduction,
+.stylizing {
+    margin-bottom: 20px; /* Add some margin between paragraphs */
+    max-width: 800px; /* Limit the width of the paragraphs for better readability */
+    line-height: 1.6; /* Improve line height for readability */
+}
+
+h1 {
+    color: #333; /* Darker heading color */
+    margin-bottom: 20px;
+}
