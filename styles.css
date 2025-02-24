@@ -13,7 +13,7 @@ body {
     padding: 30px;
     text-align: center;
     font-size: 30px;
-    color: white; /* Header text color */
+    color: black; /* Header text color */
 }
 
 .header h1 {
@@ -45,7 +45,7 @@ body {
 }
 
 .links-section h2 {
-    color: white;
+    color: black;
     margin-bottom: 15px;
 }
 
@@ -58,7 +58,7 @@ body {
 .tutorial-links a, .homework-links a, .quiz-links a {
     font-size: 24px; /* Slightly reduced font size */
     margin-bottom: 10px;
-    color: white;
+    color: black;
     text-decoration: none;
     padding: 10px 20px;
     border: none;
@@ -71,6 +71,6 @@ body {
 
 .tutorial-links a:hover, .homework-links a:hover, .quiz-links a:hover {
     color: black;
-    background-color: white; /* Change background on hover */
+    background-color: #0796f5; /* Change background on hover */
     box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
 }
