@@ -46,13 +46,14 @@ body {
 
 .links-section h2 {
     color: black;
-    margin-bottom: 15px;
+    margin-bottom: 15px;;
 }
 
 .tutorial-links, .homework-links, .quiz-links {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-decoration: none;
 }
 
 .tutorial-links a, .homework-links a, .quiz-links a {
@@ -67,10 +68,12 @@ body {
     transition: background-color 0.3s ease;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     background-color: rgba(0, 0, 0, 0.3); /* Add a semi-transparent background */
+    text-decoration: none;
 }
 
 .tutorial-links a:hover, .homework-links a:hover, .quiz-links a:hover {
     color: black;
     background-color: #0796f5; /* Change background on hover */
     box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
 }
