@@ -27,3 +27,10 @@ const names = ["Larry", "Curly", "Moe", "Walter", "Waldo", "Lester"];
 // CHALLENGE:
 // How could you use the filter function to return a list of names
 // that start with the letter "L"?
+
+//My and Instructor generated Code
+//this filters the array to just names that start with L or l
+const startswithL = item => item[0].toLowerCase() === "l";
+const sayHello = item => `Hello, ${item}`;
+const losers = names.filter(startswithL).map(sayHello);
+console.log(losers);

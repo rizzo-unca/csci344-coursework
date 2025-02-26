@@ -19,3 +19,11 @@ console.log(result3);
 // CHALLENGE:
 // How could you use the map function that creates a new array where each
 // number is the original array is return inside a paragraph tag?
+
+
+//Instructor guided in class code
+const goal = ['<p>1</p>', '<p>2</p>','<p>3</p>','<p>4</p>','<p>5</p>',];
+
+const paragraphify = item => `<p>${item}</p>`;
+const paragraphArray = myNums.map(paragraphify);
+console.log(paragraphArray);
