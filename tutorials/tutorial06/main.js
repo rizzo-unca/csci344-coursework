@@ -62,4 +62,12 @@ const showMatchingCourses = () => {
     console.log(`Course data:`, courseList);
 
     // output all of the matching courses to the screen:
+    const container = document.querySelector(".courses");
+    container.innerHTML = "";
+    courseList.forEach(course =>  {
+        const snippet = dataToHTML(course);
+        console.log(snippet); //for debugging
+        //adding HTML snippet to the DOM:
+        container.insertAdjacentHTML("beforeend", snippet);
+    });
 };
