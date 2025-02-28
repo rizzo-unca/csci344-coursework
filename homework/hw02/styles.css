@@ -232,7 +232,7 @@ main {
     border-radius: 8px;
 }
 
-.align-actions-left {
+/* .align-actions-left {
     display: flex;
     justify-content: space-between;
     height: 16px;
@@ -242,7 +242,17 @@ main {
     display: flex;
     justify-content: right;
     height: 0px;
+} */
+
+.button-row {
+    display: flex;
+    justify-content: space-between;
 }
+
+.align-actions-left {
+    display: flex;
+    gap: 8px;
+} 
 
 .post-action-icon {
     width: 25px;
@@ -294,8 +304,9 @@ main {
 }
 
 .post-add-comment {
-    display: flex;
-    align-items: flex-end;
+    display: grid;
+    grid-template-columns: 1fr 0px;
+    align-items: center;
     padding: 10px;
     border-top: 1px solid #ccc;
 }
@@ -306,10 +317,16 @@ main {
     margin-right: 10px;
 }
 
+.fa-face-smile {
+    position: absolute;
+    margin-left: 5px;
+}
+
 .post-add-comment-input {
     flex-grow: 1;
     border: none;
-    padding: 5px;
+    padding: 20px;
+    padding-left: 30px;
     border-radius: 5px;
     background-color: #f0f0f0; 
 }
@@ -317,7 +334,7 @@ main {
 .post-add-comment-link {
     color: #007bff;
     text-decoration: none;
-    margin-left: 10px;
+    margin-left: -50px;
 }
 
 /* changing suggestions to hide when web page is smaller */
