@@ -35,12 +35,13 @@ const isClassFull = (course) => {
 /* Second Function I made */
 /**************************/
 // Part 1.1b
-const doesTermMatch = (courseList) => {
+const doesTermMatch = (course) => {
     let match = false;
     //title check
     if (course.Title.toLowerCase().includes(searchTerm.toLowerCase())) {
         match = true;
     }
+    return match;
 
     //could check multiple things (title matching)
 };
@@ -63,11 +64,18 @@ const showMatchingCourses = () => {
 
     // output all of the matching courses to the screen:
     const container = document.querySelector(".courses");
-    container.innerHTML = "";
-    courseList.forEach(course =>  {
+    container.innerHTML = null;
+    //filtering by search term
+    let matches = courseList.filter(doesTermMatch);
+
+    matches.forEach(course =>  {
         const snippet = dataToHTML(course);
         console.log(snippet); //for debugging
         //adding HTML snippet to the DOM:
         container.insertAdjacentHTML("beforeend", snippet);
     });
 };
+
+
+//teacher assigned tasks
+//can you make the data to HTML more robust, showing instructor, days of the week etc etc
