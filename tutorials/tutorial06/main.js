@@ -46,29 +46,48 @@ const doesTermMatch = (course) => {
     //could check multiple things (title matching)
 };
 
+
+/*************************/
+/* Third Function I made */
+/*************************/
 // Part 1.2
 const dataToHTML = (course) => {
-    //Day formatting
-    const formatDays = (days) => {
-        if (!days || days.length === 0) { return "No currently scheduled days";
-        } else {
-        return days.join(", ");
-        }
+    let status;
+    if (isClassFull(course)){
+        status = `<i class="fa-solid fa-circle-xmark"></i>`
+    } else {
+        status = `<i class="fa-solid fa-circle-check"></i>` 
     };
 
-    //time formatting
-    const formatTime = (time) => {
-        if (!time) {return "No current time scheduled";
+    let  seatsAvaliable = course.EnrollmentMax - course.EnrollmentCurrent;
+    if (seatsAvaliable < 0) {
+        seatsAvaliable = 0;
+    }
+
+    //Day formatting
+    const formatDays = (Days) => {
+        if (!Days || Days.length === 0) { return "No currently scheduled days";
         } else {
-        return time;
+        return Days.join(", ");
+        }
+    }
+
+    //time formatting
+    const formatTime = (StartTime) => {
+        if (!StartTime) {return "No current time scheduled";
+        } else {
+            //some experimental formatting
+            const options = { hour: 'numeric', minute: 'numeric', timeZone: 'America/New_York' };
+            return new Date(StartTime).toLocaleTimeString('en-US', options);
         }
     }
 
     //instructor formatting
-    const formatInstructor = (Instructors) => {
-        if (!Instructors) {return "Instructor TBD";
+    const formatInstructors = (Instructors) => {
+        if (!Instructors || Instructors.length === 0) {return "Instructor TBD";
         } else {
-        return `Instructor: ${Instructors}`;
+            const instructorName = Instructors.map(instructor => instructor.Name);
+            return `Instructor: ${instructorName.join(", ")}`;
         }
     }
 
@@ -84,15 +103,18 @@ const dataToHTML = (course) => {
             statusText = `Open ${course.Code}. Open Seats ${course.EnrollmentMax - course.EnrollmentCurrent}`;
         }
         return `<div class="status${status}"<i class="fa-circle-${status === "open" ? "check" : "xmark"}"></i>${statusText}</div>`;
-    };
-
+    }
 
     return `
-        <section class="course">
-            <h2>${course.Title}</h2>
-            ${formatStatus(course)}
-            <p>Placeholder text</p>
-            <p class="Instructor">${formatInstructor(course.Instructors)}</p>
+         <section class="course">
+            <h2>${course.Code}: ${course.Title}</h2>
+            <p>
+                ${status}  &bull; 10174 &bull; Seats Available: 1
+            </p>
+            <p>
+                ${course.Days} &bull; ${course.Location.FullLocation} &bull; 
+            </p>
+            <p><strong>${course.Instructors[0].Name}</strong></p>
         </section>
         `
 };
@@ -116,7 +138,3 @@ const showMatchingCourses = () => {
         container.insertAdjacentHTML("beforeend", snippet);
     });
 };
-
-
-//teacher assigned tasks
-//can you make the data to HTML more robust, showing instructor, days of the week etc etc
