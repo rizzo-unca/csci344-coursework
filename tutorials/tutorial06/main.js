@@ -48,12 +48,53 @@ const doesTermMatch = (course) => {
 
 // Part 1.2
 const dataToHTML = (course) => {
-    // modify this to be more detailed
+    //Day formatting
+    const formatDays = (days) => {
+        if (!days || days.length === 0) { return "No currently scheduled days";
+        } else {
+        return days.join(", ");
+        }
+    };
+
+    //time formatting
+    const formatTime = (time) => {
+        if (!time) {return "No current time scheduled";
+        } else {
+        return time;
+        }
+    }
+
+    //instructor formatting
+    const formatInstructor = (Instructors) => {
+        if (!Instructors) {return "Instructor TBD";
+        } else {
+        return `Instructor: ${Instructors}`;
+        }
+    }
+
+    //formatting class status
+    const formatStatus = (course) => {
+        let status = "";
+        let statusTest = "";
+        if(course.EnrollmentCurrent >= course.EnrollmentMax) {
+            status = "closed";
+            statusText = `Closed ${course.Code}. Waitlisted ${course.Waitlist}`;
+        } else {
+            status = "open";
+            statusText = `Open ${course.Code}. Open Seats ${course.EnrollmentMax - course.EnrollmentCurrent}`;
+        }
+        return `<div class="status${status}"<i class="fa-circle-${status === "open" ? "check" : "xmark"}"></i>${statusText}</div>`;
+    };
+
+
     return `
         <section class="course">
-            ${course.Code}
+            <h2>${course.Title}</h2>
+            ${formatStatus(course)}
+            <p>Placeholder text</p>
+            <p class="Instructor">${formatInstructor(course.Instructors)}</p>
         </section>
-    `;
+        `
 };
 
 // Part 2

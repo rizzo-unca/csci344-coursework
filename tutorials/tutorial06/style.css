@@ -75,6 +75,7 @@ header {
 .course {
     border: solid 1px #CCC;
     padding: 0 20px;
+    background-color: #F4F4F4;
 }
 
 .course h2 {
