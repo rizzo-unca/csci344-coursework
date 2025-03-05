@@ -116,7 +116,7 @@ const dataToHTML = (course) => {
                 ${formatStatus(course)}
             </p>
             <p>
-                ${formatDays(course.Days)} &bull; ${formatLocation(course.Location)}
+                ${formatDays(course.Days)} &bull; ${formatLocation(course.Location)} &bull; ${course.Hours} credit hour(s);
             </p>
             <p><strong>${course.Instructors[0].Name}</strong></p>
         </section>
