@@ -14,40 +14,50 @@ const search = (ev) => {
     showMatchingCourses();
 };
 
-/*************************/
-/* First Function I made */
-/*************************/
+
 // Part 1.1a
 const isClassFull = (course) => {
     //look at classification open: true
     return course.EnrollmentCurrent >= course.EnrollmentMax;
-    /*
-    if (course.EnrollmentCurrent >= course.EnrollmentMax) {
-        return true;
-    } else {
-        return false;
-    }
-    */
+
 };
 
-
-/**************************/
-/* Second Function I made */
-/**************************/
 // Part 1.1b
 const doesTermMatch = (course) => {
     const term = searchTerm.toLowerCase();
-    return (
+    let match = false;
+
+    // Searching Title, Code, or Description
+    if (
         course.Title.toLowerCase().includes(term) ||
         course.Code.toLowerCase().includes(term) ||
-        (course.Description && course.Description.toLowerCase.includes(term))
-    );
+        (course.Description && course.Description.toLowerCase().includes(term))
+    ) {
+        match = true
+    }
+
+    // Searching Instructor name
+    if (course.Instructors && course.Instructors.some(instructor => instructor.Name.toLowerCase().includes(term))) {
+        match = true;
+    };
+
+    // Searching locations
+    if (
+        course.Location && 
+        (course.Location.Building && course.Location.Building.toLowerCase().includes(term)) || 
+        (course.Location.Room && course.Location.Room.toLowerCase().includes(term))
+    ) {
+        match = true;
+    }
+
+    // Searching meeting days
+    if (course.StartTime && new Date(course.StartTime).toLocaleTimeString().toLowerCase().includes(term)) {
+        match = true;
+    }
+
+    return match; // this will return true if anything matched
 };
 
-
-/*************************/
-/* Third Function I made */
-/*************************/
 // Part 1.2
 const dataToHTML = (course) => {
     let status;
@@ -75,7 +85,7 @@ const dataToHTML = (course) => {
     const formatTime = (StartTime) => {
         if (!StartTime) return "No current time scheduled";
         let date = new Date(StartTime);
-        if (isNaN(date)) return "Invalid time format"; //Handles invalid cases just incase
+        if (isNaN(date)) return "Invalid time format"; // Handles invalid cases just incase
 
         const options = { hour: "numeric", minute: "numeric", timeZone: "America/New_York" };
         return date.toLocaleTimeString("en-US", options);
