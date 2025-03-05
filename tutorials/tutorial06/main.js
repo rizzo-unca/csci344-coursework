@@ -105,6 +105,10 @@ const dataToHTML = (course) => {
                 </div>`;
     };
 
+    const formatLocation = (Location) => {
+        return Location?.FullLocation ? Location.FullLocation : "No current location";
+    };
+
     return `
          <section class="course">
             <h2>${course.Code}: ${course.Title}</h2>
@@ -112,7 +116,7 @@ const dataToHTML = (course) => {
                 ${formatStatus(course)}
             </p>
             <p>
-                ${formatDays(course.Days)} &bull; ${course.Location.FullLocation}
+                ${formatDays(course.Days)} &bull; ${formatLocation(course.Location)}
             </p>
             <p><strong>${course.Instructors[0].Name}</strong></p>
         </section>
