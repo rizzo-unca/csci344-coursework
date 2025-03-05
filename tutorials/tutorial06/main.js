@@ -36,14 +36,12 @@ const isClassFull = (course) => {
 /**************************/
 // Part 1.1b
 const doesTermMatch = (course) => {
-    let match = false;
-    //title check
-    if (course.Title.toLowerCase().includes(searchTerm.toLowerCase())) {
-        match = true;
-    }
-    return match;
-
-    //could check multiple things (title matching)
+    const term = searchTerm.toLowerCase();
+    return (
+        course.Title.toLowerCase().includes(term) ||
+        course.Code.toLowerCase().includes(term) ||
+        (course.Description && course.Description.toLowerCase.includes(term))
+    );
 };
 
 
@@ -66,21 +64,22 @@ const dataToHTML = (course) => {
 
     //Day formatting
     const formatDays = (Days) => {
-        if (!Days || Days.length === 0) { return "No currently scheduled days";
-        } else {
+        if (!Days) return "No currently scheduled days";
+        if (typeof Days === "string") return Days.split(""); 
+        if (!Array.isArray(Days) || Days.length === 0) return "No currently scheduled days";
+
         return Days.join(", ");
-        }
-    }
+    };
 
     //time formatting
     const formatTime = (StartTime) => {
-        if (!StartTime) {return "No current time scheduled";
-        } else {
-            //some experimental formatting
-            const options = { hour: 'numeric', minute: 'numeric', timeZone: 'America/New_York' };
-            return new Date(StartTime).toLocaleTimeString('en-US', options);
-        }
-    }
+        if (!StartTime) return "No current time scheduled";
+        let date = new Date(StartTime);
+        if (isNaN(date)) return "Invalid time format"; //Handles invalid cases just incase
+
+        const options = { hour: "numeric", minute: "numeric", timeZone: "America/New_York" };
+        return date.toLocaleTimeString("en-US", options);
+    };
 
     //instructor formatting
     const formatInstructors = (Instructors) => {
@@ -93,30 +92,31 @@ const dataToHTML = (course) => {
 
     //formatting class status
     const formatStatus = (course) => {
-        let status = "";
-        let statusTest = "";
-        if(course.EnrollmentCurrent >= course.EnrollmentMax) {
-            status = "closed";
-            statusText = `Closed ${course.Code}. Waitlisted ${course.Waitlist}`;
-        } else {
-            status = "open";
-            statusText = `Open ${course.Code}. Open Seats ${course.EnrollmentMax - course.EnrollmentCurrent}`;
-        }
-        return `<div class="status${status}"<i class="fa-circle-${status === "open" ? "check" : "xmark"}"></i>${statusText}</div>`;
-    }
+        let status = course.EnrollmentCurrent >= course.EnrollmentMax ? "closed" : "open";
+        let waitlistCount = course.Waitlist ? course.Waitlist : 0; // If Waitlist is undefined, set it to 0
+    
+        let statusText = status === "closed"
+            ? `Closed ${course.Code}. Waitlisted: ${waitlistCount}`
+            : `Open ${course.Code}. Open Seats: ${course.EnrollmentMax - course.EnrollmentCurrent}`;
+    
+        return `<div class="status ${status}">
+                    <i class="fa-solid fa-circle-${status === "open" ? "check" : "xmark"}"></i> 
+                    ${statusText}
+                </div>`;
+    };
 
     return `
          <section class="course">
             <h2>${course.Code}: ${course.Title}</h2>
             <p>
-                ${status}  &bull; 10174 &bull; Seats Available: 1
+                ${formatStatus(course)}
             </p>
             <p>
-                ${course.Days} &bull; ${course.Location.FullLocation} &bull; 
+                ${formatDays(course.Days)} &bull; ${course.Location.FullLocation}
             </p>
             <p><strong>${course.Instructors[0].Name}</strong></p>
         </section>
-        `
+        `;
 };
 
 // Part 2
@@ -125,16 +125,19 @@ const showMatchingCourses = () => {
     console.log(`Only show open classes: ${openOnly}`);
     console.log(`Course data:`, courseList);
 
-    // output all of the matching courses to the screen:
     const container = document.querySelector(".courses");
-    container.innerHTML = null;
-    //filtering by search term
-    let matches = courseList.filter(doesTermMatch);
+    container.innerHTML = "";
 
-    matches.forEach(course =>  {
+    let matches = courseList.filter(doesTermMatch);
+    
+    // Apply the open class filter if checked
+    if (openOnly) {
+        matches = matches.filter(course => !isClassFull(course));
+    }
+
+    matches.forEach(course => {
         const snippet = dataToHTML(course);
-        console.log(snippet); //for debugging
-        //adding HTML snippet to the DOM:
+        console.log(snippet); // Debugging
         container.insertAdjacentHTML("beforeend", snippet);
     });
 };
