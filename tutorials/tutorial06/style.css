@@ -3,6 +3,7 @@ body * {
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
     position: relative;
+    cursor: url('surprisecursor.gif') 32 32, auto;
 }
 
 body::before{
