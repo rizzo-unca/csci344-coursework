@@ -1,15 +1,15 @@
-import { getAccessToken } from "./get-token.js";
+import { getAccessToken } from "./get-token.mjs";
 const rootURL = "https://photo-app-secured.herokuapp.com";
 
 export async function createPost() {
     // get access token (like logging in) so that you can query for "your data":
-    const token = await getAccessToken(rootURL, "sarah", "password");
+    const token = await getAccessToken(rootURL, "ryan", "password");
 
     // data to sent to server:
     const postData = {
-        image_url: "https://picsum.photos/300/300",
-        caption: "Caption for new post",
-        alt_text: "here is some alt text for the photo!",
+        image_url: "https://i.imgflip.com/6jwcyu.png",
+        caption: "man who knows",
+        alt_text: "this is supposed to be a picture of wojak",
     };
 
     // endpoint:
