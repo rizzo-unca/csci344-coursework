@@ -112,5 +112,33 @@ body {
     opacity: 0;
 
     /* animation delay */
-    animation: flyInFromBottom 2s ease-out forwards;
+    animation: flyInFromBottom 2.4s ease-out forwards;
+}
+
+/* Adding delay to each button so they all fly in individually */
+.tutorial-links a:nth-child(1) {
+    animation-delay: 0.2s;
+}
+.tutorial-links a:nth-child(2) {
+    animation-delay: 0.4s;
+}
+.tutorial-links a:nth-child(3) {
+    animation-delay: 0.6s;
+}
+.tutorial-links a:nth-child(4) {
+    animation-delay: 0.8s;
+}
+.tutorial-links a:nth-child(5) {
+    animation-delay: 1s;
+}
+.tutorial-links a:nth-child(6) {
+    animation-delay: 1.2s;
+}
+
+.homework-links a:nth-child(1) {
+    animation-delay: 1.4s;
+}
+
+.quiz-links a:nth-child(1) {
+    animation-delay: 1.6s;
 }
