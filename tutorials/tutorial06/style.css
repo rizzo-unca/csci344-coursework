@@ -29,16 +29,18 @@ header {
 
 .search-form {
     display: grid;
-    grid-template-columns: 50px 400px 100px;
-    justify-items: flex-start;
+    grid-template-columns: 50px 1frpx 100px; /* Mobile Adjustment */
+    justify-items: center;
     align-items: center;
     column-gap: 10px;
     row-gap: 10px;
-    padding: 20px 20px;
+    padding: 20px;
     background: #F4F4F4;
     border-radius: 4px;
     border: solid 1px #DDD;
     margin: 20px 0;
+    min-width: 300px; /* this prevents the box shrinking smaller than its content */
+    width: 100%;
 }
 .search-form label {
     justify-self: flex-end;
@@ -142,3 +144,82 @@ nav a:hover {
     color: black;
 }
 
+/* Mobile Message Styling */
+/* Hide the mobile message by default */
+.mobile-message {
+    font-family: Raleway, sans-serif;
+    display: none;  /* Hide by default */
+    background: linear-gradient(to right, #ff0066 0%, #cc33ff 100%);; 
+    color: black; 
+    padding: 10px;
+    text-align: center;
+    position: fixed; 
+    bottom: -100px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 9999;
+    transition: bottom 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    0% {
+        bottom: -100px; /* starting from below the screen */
+    }
+    100% {
+        bottom: 0; /* sliding up from the bottom of the screen */
+    }
+}
+
+@keyframes slideDown {
+    0% {
+        bottom: 0; /* starting from above the screen */
+    }
+    100% {
+        bottom: -100px; /* moving below the screen gracefully */
+    }
+}
+
+/* Show the mobile message on small screens */
+@media screen and (max-width: 768px) {
+    .mobile-message {
+        display: block; 
+        animation: slideUp 0.5s ease-out forwards; /* sliding up animation */
+    }
+
+    .mobile-message.slide-down {
+        animation: slideDown 0.5s ease-out forwards;
+    }
+}
+
+body * {
+    font-family: Poppins, sans-serif;
+}
+
+.search-form input[type="text"] {
+    width: 100%;
+    padding: 5px 10px;
+    font-size: 1.1em;
+    min-width: 150px;
+}
+
+/* Adjusting our newly created grid layout for mobile */
+@media screen and (max-width: 768px) {
+    .search-form {
+        grid-template-columns: 1fr 2fr 1fr; /* should give a more balanced layout on smaller screens */
+        padding: 15px; /* less padding for smaller screens */
+    }
+
+    .search-form input[type="text"] {
+        width: 100%;
+        font-size: 1em;
+    }
+
+    .search-form button {
+        width: 100%;
+    }
+}
+
+
+
+/* End of File */
