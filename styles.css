@@ -15,8 +15,8 @@ body {
 
 /* Dark Mode Body */
 body.dark-mode {
-    background: rgb(28, 28, 28);
-    background: linear-gradient(0deg, rgba(28, 28, 28, 1) 0%, rgba(34, 34, 34, 1) 100%);
+    background: rgb(10,62,62);
+    background: linear-gradient(0deg, rgba(10,62,62,1) 0%, rgba(82,59,13,1) 100%);
     color: white;
 }
 
@@ -341,7 +341,5 @@ nav a:hover {
     background-color: rgba(0, 0, 0, 0.2); /* Add a semi-transparent background on hover */
     color: black;
 }
-
-
 
 /* End of File */
