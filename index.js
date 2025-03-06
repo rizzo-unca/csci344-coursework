@@ -15,16 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check on page load
     showMobileMessage();
-
-    // Add event listener to check on resize
-    window.addEventListener('resize', function() {
-        // Ensure the message is shown or hidden based on current screen size
-        if (window.innerWidth <= 768) {
-            showMobileMessage(); // Show the message on mobile
-        } else {
-            mobileMessage.style.display = 'none'; // Hide the message on larger screens
-        }
-    });
 });
 
 
