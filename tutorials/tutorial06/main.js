@@ -2,6 +2,26 @@
 let searchTerm = "";
 let openOnly = false;
 
+// Track hover count
+let hoverCount = 0;
+
+// Get the search button
+const searchButton = document.querySelector('.search-form button');
+
+// Add event listener for hover to toggle custom cursor every other time
+searchButton.addEventListener('mouseenter', () => {
+    hoverCount++;
+
+    // Toggle the custom cursor every other hover (on even counts)
+    if (hoverCount % 2 === 0) {
+        // Add the custom cursor class
+        searchButton.classList.add('custom-cursor');
+    } else {
+        // Remove the custom cursor class
+        searchButton.classList.remove('custom-cursor');
+    }
+});
+
 const search = (ev) => {
     ev.preventDefault(); // overrides default button action
 

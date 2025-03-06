@@ -3,7 +3,6 @@ body * {
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
     position: relative;
-    cursor: url('surprisecursor.gif') 32 32, auto;
 }
 
 body::before{
@@ -65,6 +64,10 @@ header {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+.search-form button.custom-cursor {
+    cursor: url('surprisecursor.gif') 0 0, auto;
 }
 
 .search-form button:hover{
