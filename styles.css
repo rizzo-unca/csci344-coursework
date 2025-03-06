@@ -142,3 +142,79 @@ body {
 .quiz-links a:nth-child(1) {
     animation-delay: 1.6s;
 }
+
+/* Optimization for mobile */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 0 10px;
+    }
+
+    .header h1 {
+        font-size: 24px; /* making smaller for mobile readability */
+    }
+
+    .header p {
+        font-size: 18px; /* making smaller for mobile readibility */
+    }
+
+    .links-section {
+        margin-bottom: 20px;
+    }
+
+    .links-section h2 {
+        font-size: 22px; 
+    }
+
+    /* Adjusting container width for smaller screens */
+    .container {
+        width: 100; /* want to take up the full screen size */
+        padding: 10px;
+    }
+
+    /* Making the buttons larger for mobile users */
+    .tutorial-links a, .homework-links a, .quiz-links a {
+        font-size: 20px; /* making the font a bit smaller */
+        padding: 15px 30px; /* making buttons slightly bigger for mobile */
+        width: 100%; /* making the links full width */
+        box-sizing: border-box;
+    }
+
+    /* Making sure the buttons vertically stack */
+    .tutorial-links, .homework-links, .quiz-links {
+        flex-direction:column;
+        align-items: stretch; /* stretching links to take up all avaliable space */
+    }
+
+    /* Reducing margin space between the sections */
+    .links-section {
+        margin-bottom: 15px;
+    }
+
+    /* Smaller shadow for mobile buttons */
+    .tutorial-links a, .homework-links a, .quiz-links a {
+        box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Just for fun, mobile specific hover effect to be extra fancy */
+    .tutorial-links a:hover, .homework-links a:hover, .quiz-links a:hover {
+        background-color: #0796f5
+    }
+}
+
+/* The internet said to have even more adjustment specificely for phones so */
+@media screen and (max-width: 480px) {
+    .header h1 {
+        font-size: 20px;
+    }
+
+    .header p {
+        font-size: 16px;
+    }
+
+    .tutorial-links a, .homework-links a, .quiz-links a {
+        font-size: 18px;
+        padding: 12px 20px;
+    }
+}
+
+/* End of File */
