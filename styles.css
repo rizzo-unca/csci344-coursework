@@ -1,8 +1,11 @@
+/* I wanted to experiment with google fonts and I like Raleway */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap');
+
 body {
     background: rgb(34,193,195);
     background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%); 
     min-height: 100vh;
-    font-family: Arial, sans-serif; /* Added a default font */
+    font-family: Raleway, sans-serif; /* Added a default font */
     display: flex;
     flex-direction: column; /* Use flexbox for overall layout */
     align-items: center; /* Center horizontally */
@@ -76,4 +79,38 @@ body {
     background-color: #0796f5; /* Change background on hover */
     box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
     text-decoration: none;
+}
+
+/* Animation to make the buttons fly in from the bottom of the webpage */
+@keyframes flyInFromBottom {
+    0% {
+        transform: translateY(100%); /* starting off screen on the bottom */
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0); /* moving buttons to their original position */
+        opacity: 1;
+    }
+}
+
+/* Applying the animation to the buttons */
+.tutorial-links a, .homework-links a, .quiz-links a {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: black;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+
+    /* starting with the buttons hidden off screen */
+    transform: translateY(100%);
+    opacity: 0;
+
+    /* animation delay */
+    animation: flyInFromBottom 2s ease-out forwards;
 }
