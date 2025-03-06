@@ -217,4 +217,39 @@ body {
     }
 }
 
+/* Hide the mobile message by default */
+.mobile-message {
+    display: none;  /* Hide by default */
+    background: linear-gradient(to right, #ff0066 0%, #cc33ff 100%);; 
+    color: black; 
+    padding: 10px;
+    text-align: center;
+    position: fixed; 
+    bottom: -100px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 9999;
+    transition: bottom 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    0% {
+        bottom: -100px; /* starting from below the screen */
+    }
+    100% {
+        bottom: 0; /* sliding up from the bottom of the screen */
+    }
+}
+
+/* Show the mobile message on small screens */
+@media screen and (max-width: 768px) {
+    .mobile-message {
+        display: block; 
+        animation: slideUp 0.5s ease-out forwards; /* sliding up animation */
+    }
+}
+
+
+
 /* End of File */
