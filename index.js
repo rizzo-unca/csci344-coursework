@@ -1,5 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
     const mobileMessage = document.getElementById('mobile-message');
+    const lightModeBtn = document.getElementById("lightModeButton");
+    const darkModeBtn = document.getElementById("darkModeButton");
+
+    // Applying dark mode
+    function applyDarkMode() {
+        document.body.classList.add('dark-mode');
+    }
+
+    // Applying light mode
+    function applyLightMode() {
+        document.body.classList.remove('dark-mode');
+    }
+
+    // Event listener for the theme buttons
+    lightModeBtn.addEventListener('click', applyLightMode);
+    darkModeBtn.addEventListener('click', applyDarkMode);
 
     function showMobileMessage() {
         if (window.innerWidth <= 768) {

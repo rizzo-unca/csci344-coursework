@@ -1,6 +1,7 @@
 /* I wanted to experiment with google fonts and I like Raleway */
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap');
 
+/* Light Mode Body (This will be the defailt) */
 body {
     background: rgb(34,193,195);
     background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%); 
@@ -10,6 +11,47 @@ body {
     flex-direction: column; /* Use flexbox for overall layout */
     align-items: center; /* Center horizontally */
     margin: 0; /* Remove default margins */
+}
+
+/* Dark Mode Body */
+body.dark-mode {
+    background: rgb(28, 28, 28);
+    background: linear-gradient(0deg, rgba(28, 28, 28, 1) 0%, rgba(34, 34, 34, 1) 100%);
+    color: white;
+}
+
+header, .links-section, .tutorial-links a, .homework-links a, .quiz-links a {
+    background-color: transparent; /* darker background for the sections */
+    color: white;
+}
+
+button, .tutorial-links a, .homework-links a, .quiz-links a {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent background */
+    color: black;
+    text-decoration: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+button:hover, .tutorial-links a:hover, .homework-links a:hover, .quiz-links a:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* test optional styles */
+button {
+    padding:10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .header {
