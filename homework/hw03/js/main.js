@@ -1,12 +1,15 @@
 import { getAccessToken } from "./utilities.js";
 const rootURL = "https://photo-app-secured.herokuapp.com";
 let token = null;
-let username = "webdev";
+let username = "ryan";
 let password = "password";
 
 async function initializeScreen() {
+    // this function gets invoced when the page loads
     token = await getToken();
     showNav();
+    // get posts;
+    getPosts();
 }
 
 async function getToken() {
@@ -31,4 +34,33 @@ function showNav() {
 
 
 // after all of the functions are defined, invoke initialize at the bottom:
+initializeScreen();
+
+//await / async syntax:
+async function getPosts() {
+    const response = await fetch("https://photo-app-secured.herokuapp.com/api/posts/?limit=10", {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    });
+    const data = await response.json();
+    console.log(data);
+    renderPosts(data);
+}
+
+function renderPost(postJSON) {
+    const template = `
+        <section>Post stuff here</section>
+    `;
+    const container = document.querySelector('main');
+    containerlinsertAdjacentHTML('beforeend', template);
+}
+
+function renderPosts(postListJSON) {
+    postList.forEach(renderPost)
+}
+
+// after all of the functions are defined, invoke initalize at the bottom:
 initializeScreen();
