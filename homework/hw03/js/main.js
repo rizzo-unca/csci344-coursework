@@ -128,7 +128,7 @@ const postData = {
 };
 
 //await / async syntax:
-async function createBookmark(postId) {
+window.createBookmark = async function createBookmark(postId) {
     const postData = {
         post_id: postId,
     };
