@@ -50,6 +50,25 @@ async function getPosts() {
     renderPosts(data);
 }
 
+// Function to make our bookmarks
+function renderBookmarkButton(postJSON) {
+    let template = "";
+    if (postJSON.current_user_bookmark_id) {
+    template = `
+        <button onclick="createBookmark(${postJSON.id})">
+            <i class="fas fa-bookmark"></i>
+        </button>
+    `;
+    } else {
+        template = `
+        <button onclick="createBookmark(${postJSON.id})">
+            <i class="far fa-bookmark"></i>
+        </button>
+    `;
+    }
+    return template;
+}
+
 function renderPost(postJSON) {
     const template = `
 <section class="bg-white border mb-10">
@@ -67,7 +86,7 @@ function renderPost(postJSON) {
                         <button><i class="far fa-paper-plane"></i></button>
                     </div>
                     <div>
-                        <button><i class="far fa-bookmark"></i></button>
+                        ${renderBookmarkButton(postJSON)}
                     </div>
                 </div>
                 <p class="font-bold mb-3">${postJSON.likes.length}</p>
@@ -102,6 +121,27 @@ function renderPost(postJSON) {
 
 function renderPosts(postListJSON) {
     postListJSON.forEach(renderPost)
+}
+
+const postData = {
+    "post_id": 1
+};
+
+//await / async syntax:
+async function createBookmark(postId) {
+    const postData = {
+        post_id: postId,
+    };
+    const response = await fetch("https://photo-app-secured.herokuapp.com/api/bookmarks/", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(postData)
+    });
+    const data = await response.json();
+    console.log(data);
 }
 
 // after all of the functions are defined, invoke initalize at the bottom:
