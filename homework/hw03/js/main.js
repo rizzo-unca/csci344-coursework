@@ -32,10 +32,6 @@ function showNav() {
 
 
 
-
-// after all of the functions are defined, invoke initialize at the bottom:
-initializeScreen();
-
 //await / async syntax:
 async function getPosts() {
     const response = await fetch("https://photo-app-secured.herokuapp.com/api/posts/?limit=10", {
@@ -54,17 +50,17 @@ async function getPosts() {
 function renderBookmarkButton(postJSON) {
     let template = "";
     if (postJSON.current_user_bookmark_id) {
-    template = `
-        <button onclick="createBookmark(${postJSON.id})">
-            <i class="fas fa-bookmark"></i>
-        </button>
-    `;
+        template = `
+            <button class="bookmark-button" data-post-id="${postJSON.id}" data-bookmark-id="${postJSON.current_user_bookmark_id}">
+                <i class="fas fa-bookmark"></i>
+            </button>
+        `;
     } else {
         template = `
-        <button onclick="createBookmark(${postJSON.id})">
-            <i class="far fa-bookmark"></i>
-        </button>
-    `;
+            <button class="bookmark-button" data-post-id="${postJSON.id}" data-bookmark-id="null">
+                <i class="far fa-bookmark"></i>
+            </button>
+        `;
     }
     return template;
 }
@@ -119,30 +115,71 @@ function renderPost(postJSON) {
     container.insertAdjacentHTML('beforeend', template);
 }
 
+function renderLikeButton(post.JSON) {
+    let template = "";
+    const userLiked = post.JSON.likes.some(like => like.user.usermname === username;
+        if (userLiked) {
+            template = `
+                <button class`
+        }
+    )
+}
+
 function renderPosts(postListJSON) {
     postListJSON.forEach(renderPost)
+
+    // Bookmark 
+    document.querySelector('main').addEventListener('click', async (event) => {
+        if (event.target.classList.contains('bookmark-button') || event.target.parentElement.classList.contains('bookmark-button')) {
+            const button = event.target.classList.contains('bookmark-button') ? event.target : event.target.parentElement;
+            const postId = button.dataset.postId;
+            const bookmarkId = button.dataset.bookmarkId;
+            await toggleBookmark(postId, bookmarkId, button);
+        }
+    });
 }
 
 const postData = {
     "post_id": 1
 };
 
-//await / async syntax:
-window.createBookmark = async function createBookmark(postId) {
-    const postData = {
-        post_id: postId,
-    };
-    const response = await fetch("https://photo-app-secured.herokuapp.com/api/bookmarks/", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(postData)
-    });
-    const data = await response.json();
-    console.log(data);
-}
+async function toggleBookmark(postId, bookmarkId, button) {
+    try {
+        let response;
+        if (bookmarkId === 'null') {
+            response = await fetch(`${rootURL}/api/bookmarks/`, {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ post_id: postId})
+            });
+        } else {
+            response = await fetch(`${rootURL}/api/bookmarks/${bookmarkId}`, {
+                method: "DELETE",
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+        }
 
+        // UI changes for bookmark
+        if(bookmarkId === 'null'){
+            button.innerHTML = '<i class="fas fa-bookmark"></i>';
+            const data = await response.json();
+            button.dataset.bookmarkId = data.id;
+        } else {
+            button.innerHTML = '<i class="far fa-bookmark"></i>';
+            button.dataset.bookmarkId = "null";
+        }
+    }
+
+    catch (error) {
+        console.error("Bookmark toggle error", error);
+    }
+
+
+}
 // after all of the functions are defined, invoke initalize at the bottom:
 initializeScreen();
