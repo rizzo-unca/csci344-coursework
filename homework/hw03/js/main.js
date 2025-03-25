@@ -12,6 +12,7 @@ async function initializeScreen() {
     getPosts();
 }
 
+//  Dynamically inserts HTML nav bar into the nav element
 function showNav() {
     document.querySelector("#nav").innerHTML = `
     <nav class="flex justify-between py-5 px-9 bg-white border-b fixed w-full top-0">
@@ -42,22 +43,30 @@ async function getPosts() {
     renderPosts(data);
 }
 
+// renderBookmarkButton function (generates HTML for bookmark buttons & dynamically sets atributes)
 function renderBookmarkButton(postJSON) {
-    let template = "";
-    if (postJSON.current_user_bookmark_id) {
-        template = `
-            <button onclick="">
-                <i class="fas fa-bookmark"></i>
-            </button>
-        `;
-    } else {
-        template = `
-            <button onclick="window.createBookmark(${postJSON.id})">
-                <i class="far fa-bookmark"></i>
-            </button>
-        `;
-    }
-    return template;
+    return `                        
+        <button
+            class="bookmark-btn" 
+            data-post-id="${postJSON.id}" 
+            data-bookmark-id="${postJSON.current_user_bookmark_id || ''}">
+            <i class="${postJSON.current_user_bookmark_id ? 'fas' : 'far'} fa-bookmark"></i>
+        </button>
+    `;
+    //  Assigns CSS class 'bookmark-btn' to the bookmark button
+    //  Adds data-post-id attribute to previously mentioned button
+    //  Adds data-bookmark-id attribute to said button & stores bookmark ID for post.
+    //  Dynamically sets CSS classes for the bookmark button depending on if it was previously bookmarked or not
+}
+
+// attatchBookmarkListeners function (finds all bookmark buttons on the page & attatches click event to them)
+function attatchBookmarkListeners(postListJSON) {                        //  defines attatchBookmarkListener function
+    const bookmarkButtons = document.querySelectorAll('.bookmark-btn');  //  Selects all HTML bookmark-btn elements and returns a NodeList of them
+    bookmarkButtons.forEach((button, index) => {                         //  Iterates over all bookmark buttons and recieves button & index paramaters
+        button.addEventListener('click', () => {                         //  Adds click event listener to current bookmark button
+            toggleBookmark(button, postListJSON[index]);                 //  Calls toggleBookmark function and passes button & postListJSON[index] paramaters
+        });
+    });
 }
 
 function renderPost(postJSON) {
@@ -115,28 +124,71 @@ function renderPost(postJSON) {
 }
 
 function renderPosts(postListJSON) {
-    // option 1:
     postListJSON.forEach(renderPost);
+    attatchBookmarkListeners(postListJSON);
 }
 
-//await / async syntax:
-window.createBookmark = async function (postId) {
-    const postData = {
-        post_id: postId,
-    };
-    const response = await fetch(
-        "https://photo-app-secured.herokuapp.com/api/bookmarks/",
+// Handeling bookmarks
+window.createBookmark = async function (postId) {  // Defining createBookmark async function & attatching it to window (to be global)
+    const postData = {post_id: postId}; //  Creates postData object to be passed as API request body
+    // HTTP Post request to /api/bookmarks
+    const response = await fetch (
+        `${rootURL}/api/bookmarks`,  //  Template literal to construct URL w/ endpoint path
         {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+            //  Option for fetch request
+            method: "POST",  //  Specifying post request method
+            headers: {       //  Setting request headers
+                "Content-Type": "application/json",  //  Specifying request body as JSON format
+                Authorization: `Bearer ${token}`,    //  Including auth token
             },
-            body: JSON.stringify(postData),
+            body: JSON.stringify(postData),          //  Setting request body to JSON string rep of postData
         }
     );
-    const data = await response.json();
-    console.log(data);
+    const data = await response.json();  //  Parsing JSON response from API
+    console.log(data);                   //  Logs parsed JSON data to browser console
+};
+
+//  ToggleBookmark function
+window.toggleBookmark = async function (buttonEl, postJSON) {  //  Declares toggleBookmark function & attatches to window (making global variable)
+    const iconEl = buttonEl.querySelector("i");                //  Retrieving bookmark icon
+
+    if (postJSON.current_user_bookmark_id) {  //  Checks if user has bookmarked post
+        const response = await fetch (
+            `${rootURL}/api/bookmarks/${postJSON.current_user_bookmark_id}`,  //  Constructing url to bookmark we want to remove
+            {
+                method: "DELETE",                        //  Specifying HTTP request as Delete
+                headers: {                               //  Setting required headers
+                    "Content-Type": "application/json",  //  Specifying request body as JSON
+                    Authorization: `Bearer ${token}`,    //  Including auth token
+                },
+            }
+        );
+        //  Executes our HTML Delete request
+        if (response.ok) {
+            iconEl.classList.remove("fas");            //  Removing 'fas' from the bookmark icon
+            iconEl.classList.add("far");               //  Adding 'far' to the bookmark icon
+            postJSON.current_user_bookmark_id = null;  //  Sets current_user_bookmark_id to NULL
+        }
+    } else {  //  Creating new bookmark if user hasn't bookmarked a post
+        const response = await fetch(
+            `${rootURL}/api/bookmarks/`,                 //  Bookmark creation API endpoint
+            {
+                method: "POST",                          //  Specifying HTTP request as Post
+                headers: {                               //  Setting request headers
+                    "Content-Type": "application/json",  //  Specifies request body as JSON
+                    Authorization: `Bearer ${token}`,    //  Including auth token
+                },
+                body: JSON.stringify({ post_id: postJSON.id }),  //  Setting request body to JSON string w/ post_id for the bookmarked post
+            }
+        );
+        const data = await response.json();  //  Parsing JSON response body from API Post request then stores in data constant
+        console.log(data);                                //  logs JSON data to browser console
+        if (response.ok)  {                               //  checks if HTTP API response is successful 
+            iconEl.classList.remove("far");               //  removing "far" from the bookmark icon
+            iconEl.classList.add("fas");                  //  adding "fas" to the bookmark icon
+            postJSON.current_user_bookmark_id = data.id;  //  updates postJSON with id of the newly created bookmark
+        }
+    }
 };
 
 // after all of the functions are defined, invoke initialize at the bottom:
