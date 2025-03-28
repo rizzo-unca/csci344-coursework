@@ -1,13 +1,15 @@
 import { getAccessToken } from "./utilities.js";
 const rootURL = "https://photo-app-secured.herokuapp.com";
 let token = null;
-let username = "webdev";
+let username = "ryan";
 let password = "password";
 
 async function initializeScreen() {
     // this function is getting invoked when the page first loads:
     token = await getAccessToken(rootURL, username, password);
     showNav();
+    //  get profile info
+    getAndShowData();
     // get posts:
     getPosts();
 }
@@ -25,7 +27,41 @@ function showNav() {
     `;
 }
 
+//  Getting User Profile
+async function getAndShowData() {
+    const response = await fetch("https://photo-app-secured.herokuapp.com/api/profile/", {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);  // Console.log to see data being pulled
+        username = data.username;  // Update the username variable with the fetched username
+        renderProfile(data);  // Render profile using the returned data
+    } else {
+        console.error("Failed to fetch profile data:", response.status);
+    }
+}
+
 // implement remaining functionality below:
+
+// renderProfile function (generates HTML for user profile data)
+function renderProfile(profileData) {
+    const profileContainer = document.querySelector("aside header");
+
+    const profileHTML = `
+        <img src="${profileData.avatar_url || 'https://picsum.photos/60/60?q=11'}" class="rounded-full w-16" />   
+                <h2 class="font-Comfortaa font-bold text-2xl">${profileData.username || 'Ryan (Test)'}</h2>
+        `;
+
+    profileContainer.innerHTML = profileHTML;
+    console.log("Worked");
+}
+
 //await / async syntax:
 async function getPosts() {
     console.log("Fetching posts from API...");
