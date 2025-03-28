@@ -1,3 +1,4 @@
+// main2.js
 import { getAccessToken } from "./utilities.js";
 const rootURL = "https://photo-app-secured.herokuapp.com";
 let token = null;
@@ -55,6 +56,36 @@ function attachLikeListeners(postListJSON) {
     likeButtons.forEach((button, index) => {
         button.addEventListener("click", () => {
             toggleLike(button, postListJSON[index]);
+        });
+    });
+}
+
+function renderSuggestions(suggestions) {
+    const container = document.querySelector("aside .mt-4");
+    container.innerHTML = "";
+    suggestions.forEach(user => {
+        const suggestionHTML = `
+            <section class="flex justify-between items-center mb-4 gap-2">
+                <img src="${user.avatar_url || 'https://picsum.photos/40/40'}" class="rounded-full" />
+                <div class="2-[108px]">
+                    <p class="font-bold text-sm">${user.username}</p>
+                    <p class="text-gray-500 text-xs">suggested for you</p>
+                </div>
+                <button class="follow-btn text-blue-500 text-sm py-2" data-username="${user.username}">follow</button>
+            </section>
+        `;
+        container.insertAdjacentHTML("beforeend", suggestionHTML);
+    });
+    attachFollowListeners();
+}
+
+
+function attachFollowListeners() {
+    const followButtons = document.querySelectorAll(".follow-btn");
+    followButtons.forEach(button => {
+        button.addEventListener("click", async (e) => {
+            const username = e.target.getAttribute("data-username");
+            await followUser(username);
         });
     });
 }
@@ -124,10 +155,9 @@ async function initializeScreen() {
     // this function is getting invoked when the page first loads:
     token = await getAccessToken(rootURL, username, password);
     showNav();
-    //  get profile info
     getAndShowData();
-    // get posts:
     getPosts();
+    getSuggestions();
 }
 
 async function getAndShowData() {
@@ -164,7 +194,42 @@ async function getPosts() {
     const data = await response.json();
     console.log(data);
     console.log("Data from API:", data);
+    console.error(data);
     renderPosts(data);
+}
+
+async function getSuggestions() {
+    const response = await fetch(`${rootURL}/api/suggestions`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        renderSuggestions(data);
+    } else {
+        console.error("Failed to fetch suggestions:", response.status)
+    }
+}
+
+async function followUser(username) {
+    const response = await fetch(`${rootURL}/api/follow`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ username }),
+    });
+    if (response.ok) {
+        console.log(`You followed ${username}`);
+    } else {
+        console.error("failed to follow user:", response.status);
+    }
 }
 
 //  Window. functions
