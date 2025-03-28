@@ -4,17 +4,7 @@ let token = null;
 let username = "ryan";
 let password = "password";
 
-async function initializeScreen() {
-    // this function is getting invoked when the page first loads:
-    token = await getAccessToken(rootURL, username, password);
-    showNav();
-    //  get profile info
-    getAndShowData();
-    // get posts:
-    getPosts();
-}
-
-//  Dynamically inserts HTML nav bar into the nav element
+//  Function Declirations
 function showNav() {
     document.querySelector("#nav").innerHTML = `
     <nav class="flex justify-between py-5 px-9 bg-white border-b fixed w-full top-0">
@@ -27,29 +17,6 @@ function showNav() {
     `;
 }
 
-//  Getting User Profile
-async function getAndShowData() {
-    const response = await fetch("https://photo-app-secured.herokuapp.com/api/profile/", {
-        method: "GET",
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        console.log(data);  // Console.log to see data being pulled
-        username = data.username;  // Update the username variable with the fetched username
-        renderProfile(data);  // Render profile using the returned data
-    } else {
-        console.error("Failed to fetch profile data:", response.status);
-    }
-}
-
-// implement remaining functionality below:
-
-// renderProfile function (generates HTML for user profile data)
 function renderProfile(profileData) {
     const profileContainer = document.querySelector("aside header");
 
@@ -62,26 +29,6 @@ function renderProfile(profileData) {
     console.log("Worked");
 }
 
-//await / async syntax:
-async function getPosts() {
-    console.log("Fetching posts from API...");
-    const response = await fetch(
-        "https://photo-app-secured.herokuapp.com/api/posts/?limit=10",
-        {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        }
-    );
-    const data = await response.json();
-    console.log(data);
-    console.log("Data from API:", data);
-    renderPosts(data);
-}
-
-// renderBookmarkButton function (generates HTML for bookmark buttons & dynamically sets atributes)
 function renderBookmarkButton(postJSON) {
     return `                        
         <button
@@ -91,13 +38,8 @@ function renderBookmarkButton(postJSON) {
             <i class="${postJSON.current_user_bookmark_id ? 'fas' : 'far'} fa-bookmark"></i>
         </button>
     `;
-    //  Assigns CSS class 'bookmark-btn' to the bookmark button
-    //  Adds data-post-id attribute to previously mentioned button
-    //  Adds data-bookmark-id attribute to said button & stores bookmark ID for post.
-    //  Dynamically sets CSS classes for the bookmark button depending on if it was previously bookmarked or not
 }
 
-// attatchBookmarkListeners function (finds all bookmark buttons on the page & attatches click event to them)
 function attatchBookmarkListeners(postListJSON) {                        //  defines attatchBookmarkListener function
     const bookmarkButtons = document.querySelectorAll('.bookmark-btn');  //  Selects all HTML bookmark-btn elements and returns a NodeList of them
     bookmarkButtons.forEach((button, index) => {                         //  Iterates over all bookmark buttons and recieves button & index paramaters
@@ -117,67 +59,115 @@ function attachLikeListeners(postListJSON) {
     });
 }
 
-function renderPost(postJSON) {
-    const template = `
-        <section class="bg-white border mb-10">
-            <div class="p-4 flex justify-between">
-                <h3 class="text-lg font-Comfortaa font-bold">${
-                    postJSON.user.username
-                }</h3>
-                <button class="icon-button"><i class="fas fa-ellipsis-h"></i></button>
-            </div>
-            <img src="${
-                postJSON.image_url
-            }" alt="placeholder image" width="300" height="300"
-                class="w-full bg-cover">
-            <div class="p-4">
-                <div class="flex justify-between text-2xl mb-3">
-                    <div>
-                        <button class="like-btn" data-post-id="${postJSON.id}" data-like-id="${postJSON.current_user_like_id || ''}">
-                            <i class="${postJSON.current_user_like_id ? 'fas' : 'far'} fa-heart" 
-                               style="color: ${postJSON.current_user_like_id ? 'red' : 'black'};"></i>
-                        </button>
-                        <button><i class="far fa-comment"></i></button>
-                        <button><i class="far fa-paper-plane"></i></button>
-                    </div>
-                    <div>
-                        ${renderBookmarkButton(postJSON)}
-                    </div>
-                </div>
-                <p class="font-bold mb-3"><span id="like-count-${postJSON.id}">${postJSON.likes.length}</span> likes</p>                <div class="text-sm mb-3">
-                    <p>
-                        <strong>${postJSON.user.username}</strong>
-                        ${postJSON.caption} <button class="button">more</button>
-                    </p>
-                </div>
-                <p class="uppercase text-gray-500 text-xs">1 day ago</p>                    <strong>lizzie</strong>
-                    Here is a comment text text text text text text text text.
-                </p>
-                <p class="text-sm mb-3">
-                    <strong>vanek97</strong>
-                    Here is another comment text text text.
-                </p>
-                <p class="uppercase text-gray-500 text-xs">1 day ago</p>
-            </div>
-            <div class="flex justify-between items-center p-3">
-                <div class="flex items-center gap-3 min-w-[80%]">
-                    <i class="far fa-smile text-lg"></i>
-                    <input type="text" class="min-w-[80%] focus:outline-none" placeholder="Add a comment...">
-                </div>
-                <button class="text-blue-500 py-2">Post</button>
-            </div>
-        </section>
-    `;
-    const container = document.querySelector("main");
-    container.insertAdjacentHTML("beforeend", template);
-}
-
 function renderPosts(postListJSON) {
-    postListJSON.forEach(renderPost);
+    const container = document.querySelector("main");
+    
+    postListJSON.forEach(postJSON => {
+        const template = `
+            <section class="bg-white border mb-10">
+                <div class="p-4 flex justify-between">
+                    <h3 class="text-lg font-Comfortaa font-bold">${postJSON.user.username}</h3>
+                    <button class="icon-button"><i class="fas fa-ellipsis-h"></i></button>
+                </div>
+                <img src="${postJSON.image_url}" alt="placeholder image" width="300" height="300" class="w-full bg-cover">
+                <div class="p-4">
+                    <div class="flex justify-between text-2xl mb-3">
+                        <div>
+                            <button class="like-btn" data-post-id="${postJSON.id}" data-like-id="${postJSON.current_user_like_id || ''}">
+                                <i class="${postJSON.current_user_like_id ? 'fas' : 'far'} fa-heart" style="color: ${postJSON.current_user_like_id ? 'red' : 'black'};"></i>
+                            </button>
+                            <button><i class="far fa-comment"></i></button>
+                            <button><i class="far fa-paper-plane"></i></button>
+                        </div>
+                        <div>
+                            ${renderBookmarkButton(postJSON)}
+                        </div>
+                    </div>
+                    <p class="font-bold mb-3"><span id="like-count-${postJSON.id}">${postJSON.likes.length}</span> likes</p>
+                    <div class="text-sm mb-3">
+                        <p>
+                            <strong>${postJSON.user.username}</strong>
+                            ${postJSON.caption} <button class="button">more</button>
+                        </p>
+                    </div>
+                    <p class="uppercase text-gray-500 text-xs">1 day ago</p>
+                    <strong>lizzie</strong>
+                    Here is a comment text text text text text text text text.
+                    </p>
+                    <p class="text-sm mb-3">
+                        <strong>vanek97</strong>
+                        Here is another comment text text text.
+                    </p>
+                    <p class="uppercase text-gray-500 text-xs">1 day ago</p>
+                </div>
+                <div class="flex justify-between items-center p-3">
+                    <div class="flex items-center gap-3 min-w-[80%]">
+                        <i class="far fa-smile text-lg"></i>
+                        <input type="text" class="min-w-[80%] focus:outline-none" placeholder="Add a comment...">
+                    </div>
+                    <button class="text-blue-500 py-2">Post</button>
+                </div>
+            </section>
+        `;
+        
+        // Add the template to the container
+        container.insertAdjacentHTML("beforeend", template);
+    });
+
+    // Call the additional functions after all posts are rendered
     attatchBookmarkListeners(postListJSON);
     attachLikeListeners(postListJSON);
 }
 
+//  async Function Declarations
+async function initializeScreen() {
+    // this function is getting invoked when the page first loads:
+    token = await getAccessToken(rootURL, username, password);
+    showNav();
+    //  get profile info
+    getAndShowData();
+    // get posts:
+    getPosts();
+}
+
+async function getAndShowData() {
+    const response = await fetch("https://photo-app-secured.herokuapp.com/api/profile/", {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);  // Console.log to see data being pulled
+        username = data.username;  // Update the username variable with the fetched username
+        renderProfile(data);  // Render profile using the returned data
+    } else {
+        console.error("Failed to fetch profile data:", response.status);
+    }
+}
+
+async function getPosts() {
+    console.log("Fetching posts from API...");
+    const response = await fetch(
+        "https://photo-app-secured.herokuapp.com/api/posts/?limit=10",
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+    const data = await response.json();
+    console.log(data);
+    console.log("Data from API:", data);
+    renderPosts(data);
+}
+
+//  Window. functions
 // Handeling bookmarks
 window.createBookmark = async function (postId) {  // Defining createBookmark async function & attatching it to window (to be global)
     const postData = {post_id: postId}; //  Creates postData object to be passed as API request body
@@ -198,7 +188,6 @@ window.createBookmark = async function (postId) {  // Defining createBookmark as
     console.log(data);                   //  Logs parsed JSON data to browser console
 };
 
-//  ToggleBookmark function
 window.toggleBookmark = async function (buttonEl, postJSON) {  //  Declares toggleBookmark function & attatches to window (making global variable)
     const iconEl = buttonEl.querySelector("i");                //  Retrieving bookmark icon
 
@@ -300,6 +289,4 @@ window.toggleLike = async function (buttonEl, postJSON) {
     }
 };
 
-
-// after all of the functions are defined, invoke initialize at the bottom:
 initializeScreen();
