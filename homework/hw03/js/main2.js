@@ -71,21 +71,22 @@ function attatchBookmarkListeners(postListJSON) {                        //  Def
         });
     });
 }
+ 
+function attachLikeListeners(postListJSON) {                     //  Defines attatchLikeListeners function
+    const likeButtons = document.querySelectorAll(".like-btn");  //  Selects HTML elements with "like-btn" and stores them in likeButtons variable
 
-function attachLikeListeners(postListJSON) {
-    const likeButtons = document.querySelectorAll(".like-btn");
-
-    likeButtons.forEach((button, index) => {
-        button.addEventListener("click", () => {
-            toggleLike(button, postListJSON[index]);
+    likeButtons.forEach((button, index) => {                     //  Loops through each button in likeButtons
+        button.addEventListener("click", () => {                 //  Adds a click event listener to every like button
+            toggleLike(button, postListJSON[index]);             //  Calls toggleLike function when the like button is clicked
         });
     });
 }
 
-function renderSuggestions(suggestions) {
-    const container = document.querySelector("aside .mt-4");
-    container.innerHTML = "";
-    suggestions.forEach(user => {
+function renderSuggestions(suggestions) {                     //  Defines renderSuggestions function
+    const container = document.querySelector("aside .mt-4");  //  Selects HTML elements with "mt-4" and stores them in container variable
+    container.innerHTML = "";                                 //  Clears any existing content in container (just in case)
+    suggestions.forEach(user => {                             //  Loops through each user object in suggestions
+        //  Creating our HTML to be inserted using API data with fallback default images (just incase)
         const suggestionHTML = `
             <section class="flex justify-between items-center mb-4 gap-2">
                 <img src="${user.image_url || 'https://picsum.photos/40/40'}" class="rounded-full" style="width: 40px; height: 40px;" />
@@ -96,9 +97,9 @@ function renderSuggestions(suggestions) {
                 <button class="follow-btn text-blue-500 text-sm py-2" data-username="${user.username}">follow</button>
             </section>
         `;
-        container.insertAdjacentHTML("beforeend", suggestionHTML);
+        container.insertAdjacentHTML("beforeend", suggestionHTML);  //  Inserts suggestionHTML into container
     });
-    attachFollowListeners();
+    attachFollowListeners();  //  Calls attatchFollowListeers function to make follow button function (does not currently function)
 }
 
 function renderComments(comments, postId) {
