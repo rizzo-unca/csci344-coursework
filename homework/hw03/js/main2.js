@@ -18,17 +18,35 @@ function showNav() {
     `;
 }
 
+function renderStories(storiesData) {
+    const storiesContainer = document.querySelector(".stories"); // Target the stories container
+    storiesContainer.innerHTML = ""; // Clear any existing content
+
+    storiesData.forEach(story => {
+        const storyHTML = `
+            <div class="story">
+                <img src="${story.image_url || 'https://picsum.photos/60/60?q=11'}" alt="${story.username}'s story" class="rounded-full w-16">
+                <p class="text-xs text-center">${story.username}</p>
+            </div>
+        `;
+        storiesContainer.insertAdjacentHTML("beforeend", storyHTML);
+    });
+}
+
+
 function renderProfile(profileData) {
     const profileContainer = document.querySelector("aside header");
 
     const profileHTML = `
-        <img src="${profileData.avatar_url || 'https://picsum.photos/60/60?q=11'}" class="rounded-full w-16" />   
-                <h2 class="font-Comfortaa font-bold text-2xl">${profileData.username || 'Ryan (Test)'}</h2>
-        `;
+        <img src="${profileData.image_url || 'https://picsum.photos/60/60?q=11'}" style="border-radius: 50%; width: 4rem; height: 4rem;" />   
+        <h2 class="font-Comfortaa font-bold text-2xl">${profileData.username || 'Ryan (Test)'}</h2>
+    `;
 
     profileContainer.innerHTML = profileHTML;
     console.log("Worked");
 }
+
+
 
 function renderBookmarkButton(postJSON) {
     return `                        
@@ -66,7 +84,7 @@ function renderSuggestions(suggestions) {
     suggestions.forEach(user => {
         const suggestionHTML = `
             <section class="flex justify-between items-center mb-4 gap-2">
-                <img src="${user.avatar_url || 'https://picsum.photos/40/40'}" class="rounded-full" />
+                <img src="${user.image_url || 'https://picsum.photos/40/40'}" class="rounded-full" style="width: 40px; height: 40px;" />
                 <div class="2-[108px]">
                     <p class="font-bold text-sm">${user.username}</p>
                     <p class="text-gray-500 text-xs">suggested for you</p>
@@ -78,6 +96,7 @@ function renderSuggestions(suggestions) {
     });
     attachFollowListeners();
 }
+
 
 
 function attachFollowListeners() {
@@ -155,9 +174,9 @@ async function initializeScreen() {
     // this function is getting invoked when the page first loads:
     token = await getAccessToken(rootURL, username, password);
     showNav();
-    getAndShowData();
-    getPosts();
-    getSuggestions();
+    await getAndShowData();
+    await getPosts();
+    await getSuggestions();
 }
 
 async function getAndShowData() {
@@ -171,8 +190,10 @@ async function getAndShowData() {
 
     if (response.ok) {
         const data = await response.json();
-        console.log(data);  // Console.log to see data being pulled
+        console.log(" getAndShowData API Response:", data);  // Console.log to see data being pulled
         username = data.username;  // Update the username variable with the fetched username
+        console.log("Username:", username);
+        console.log("Profile Image URL:", data.image_url);
         renderProfile(data);  // Render profile using the returned data
     } else {
         console.error("Failed to fetch profile data:", response.status);
@@ -209,12 +230,14 @@ async function getSuggestions() {
 
     if (response.ok) {
         const data = await response.json();
-        console.log(data);
-        renderSuggestions(data);
+        console.log("Suggestions data:", data);
+        renderSuggestions(data); // Render suggested users (for following)
+        renderStories(data);     // Render the same suggestions in the stories panel
     } else {
         console.error("Failed to fetch suggestions:", response.status)
     }
 }
+
 
 async function followUser(username) {
     const response = await fetch(`${rootURL}/api/follow`, {

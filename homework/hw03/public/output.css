@@ -842,3 +842,33 @@ video {
     padding-left: 10vw;
   }
 }
+
+/* Desperate attempt at fixing homework */
+.stories {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+.story img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.story p {
+  margin-top: 5px;
+  font-size: 12px;
+  text-align: center;
+}
+
+aside {
+  display: block;
+}
+
+@media (max-width: 800px) {
+  aside {
+      display: none;
+  }
+}
