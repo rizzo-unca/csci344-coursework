@@ -7,8 +7,9 @@ let username = "ryan";                                      //  Declaring userna
 let password = "password";                                  //  Declaring password for API token access
 
 //  Function Declirations
+//  showNav function which constructs HTML for our sites navigation bar
 function showNav() {
-    document.querySelector("#nav").innerHTML = `
+    document.querySelector("#nav").innerHTML = `                                         
     <nav class="flex justify-between py-5 px-9 bg-white border-b fixed w-full top-0">
             <h1 class="font-Comfortaa font-bold text-2xl">Photo App</h1>
             <ul class="flex gap-4 text-sm items-center justify-center">
@@ -19,36 +20,38 @@ function showNav() {
     `;
 }
 
-function renderStories(storiesData) {
-    const storiesContainer = document.querySelector(".stories");
-    storiesContainer.innerHTML = "";
+function renderStories(storiesData) {                                 //  Defines renderStories function
+    const storiesContainer = document.querySelector(".stories");      //  Selects HTML stories element and puts it in storiesContainer
+    storiesContainer.innerHTML = "";                                  //  Clears any existing content in storiesContainer (just in case)
 
-    storiesData.forEach(story => {
+    storiesData.forEach(story => {                                    //  Iterating through all story objects in storiesData
+        //  Creating our HTML to be inserted using API data with fallback default images (again, just incase)
         const storyHTML = `
             <div class="story">
                 <img src="${story.image_url || 'https://picsum.photos/60/60?q=11'}" alt="${story.username}'s story" class="rounded-full w-16">
                 <p class="text-xs text-center">${story.username}</p>
             </div>
         `;
-        storiesContainer.insertAdjacentHTML("beforeend", storyHTML);
+        storiesContainer.insertAdjacentHTML("beforeend", storyHTML);  //  Inserting HTML at the end to be added into the HTML container
     });
 }
 
 
-function renderProfile(profileData) {
-    const profileContainer = document.querySelector("aside header");
+function renderProfile(profileData) {                                 //  Defines renderProfile function
+    const profileContainer = document.querySelector("aside header");  //  Selects the header element and assignes it to profileContainer
 
+    //  Creating our HTML to be inserted using API data with fallback default images (again just incase again)
     const profileHTML = `
         <img src="${profileData.image_url || 'https://picsum.photos/60/60?q=11'}" style="border-radius: 50%; width: 4rem; height: 4rem;" />   
         <h2 class="font-Comfortaa font-bold text-2xl">${profileData.username || 'Ryan (Test)'}</h2>
     `;
 
-    profileContainer.innerHTML = profileHTML;
-    console.log("Worked");
+    profileContainer.innerHTML = profileHTML;  //  Setting innerHTML of profileContainer to our above generated HTML
+    console.log("Worked");                     //  This is debug code to log a "worked" message in the console to make sure the API call and code implementation went through
 }
 
 
-
+//  Generating HTML for our bookmark button
 function renderBookmarkButton(postJSON) {
     return `                        
         <button
@@ -60,11 +63,11 @@ function renderBookmarkButton(postJSON) {
     `;
 }
 
-function attatchBookmarkListeners(postListJSON) {                        
-    const bookmarkButtons = document.querySelectorAll('.bookmark-btn');  
-    bookmarkButtons.forEach((button, index) => {                         
-        button.addEventListener('click', () => {                         
-            toggleBookmark(button, postListJSON[index]);                 
+function attatchBookmarkListeners(postListJSON) {                        //  Defines our attatchBookmarkListeners function                  
+    const bookmarkButtons = document.querySelectorAll('.bookmark-btn');  //  Selects all HTML elements with the "bookmark-btn" and stores them as bookmarkButton variables
+    bookmarkButtons.forEach((button, index) => {                         //  Loops through each button in bookmarkButtons list               
+        button.addEventListener('click', () => {                         //  Adding click event listeners to each button
+            toggleBookmark(button, postListJSON[index]);                 //  Calls the toggleBookmark function       
         });
     });
 }
