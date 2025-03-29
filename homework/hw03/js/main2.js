@@ -1,4 +1,5 @@
 // main2.js
+// more detailed comments will be coming before 12:00pm March 29th
 import { getAccessToken } from "./utilities.js";
 const rootURL = "https://photo-app-secured.herokuapp.com";
 let token = null;
@@ -19,8 +20,8 @@ function showNav() {
 }
 
 function renderStories(storiesData) {
-    const storiesContainer = document.querySelector(".stories"); // Target the stories container
-    storiesContainer.innerHTML = ""; // Clear any existing content
+    const storiesContainer = document.querySelector(".stories");
+    storiesContainer.innerHTML = "";
 
     storiesData.forEach(story => {
         const storyHTML = `
@@ -59,11 +60,11 @@ function renderBookmarkButton(postJSON) {
     `;
 }
 
-function attatchBookmarkListeners(postListJSON) {                        //  defines attatchBookmarkListener function
-    const bookmarkButtons = document.querySelectorAll('.bookmark-btn');  //  Selects all HTML bookmark-btn elements and returns a NodeList of them
-    bookmarkButtons.forEach((button, index) => {                         //  Iterates over all bookmark buttons and recieves button & index paramaters
-        button.addEventListener('click', () => {                         //  Adds click event listener to current bookmark button
-            toggleBookmark(button, postListJSON[index]);                 //  Calls toggleBookmark function and passes button & postListJSON[index] paramaters
+function attatchBookmarkListeners(postListJSON) {                        
+    const bookmarkButtons = document.querySelectorAll('.bookmark-btn');  
+    bookmarkButtons.forEach((button, index) => {                         
+        button.addEventListener('click', () => {                         
+            toggleBookmark(button, postListJSON[index]);                 
         });
     });
 }
@@ -97,7 +98,54 @@ function renderSuggestions(suggestions) {
     attachFollowListeners();
 }
 
+function renderComments(comments, postId) {
+    if (comments.length > 1) {
+        const recentComment = comments[comments.length - 1]; 
+        const otherComments = comments.slice(0, comments.length - 1); 
 
+        return `
+            <div class="text-sm mb-3">
+                <strong>${recentComment.username || 'Unknown User'}</strong>: ${recentComment.text}
+            </div>
+            <div class="hidden" id="extra-comments-${postId}">
+                ${otherComments.map(comment => `
+                    <div class="text-sm mb-3">
+                        <strong>${comment.username || 'Unknown User'}</strong>: ${comment.text}
+                    </div>
+                `).join('')}
+            </div>
+            <button class="text-blue-500 text-xs" id="view-all-comments-${postId}">View all ${comments.length} comments</button>
+        `;
+    } else if (comments.length === 1) {
+        const comment = comments[0];
+        return `
+            <div class="text-sm mb-3">
+                <strong>${comment.username || 'Unknown User'}</strong>: ${comment.text}
+            </div>
+        `;
+    } else {
+        return '';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', function(e) {
+        if (e.target && e.target.id.startsWith('view-all-comments-')) {
+            const postId = e.target.id.split('-')[3]; 
+            const commentsSection = document.getElementById(`extra-comments-${postId}`);
+            if (commentsSection) {
+                const isHidden = commentsSection.classList.contains('hidden');
+                if (isHidden) {
+                    commentsSection.classList.remove('hidden');
+                    e.target.textContent = `View less comments`;
+                } else {
+                    commentsSection.classList.add('hidden');
+                    e.target.textContent = `View all comments`;
+                }
+            }
+        }
+    });
+});
 
 function attachFollowListeners() {
     const followButtons = document.querySelectorAll(".follow-btn");
@@ -109,9 +157,9 @@ function attachFollowListeners() {
     });
 }
 
-function renderPosts(postListJSON) {
+async function renderPosts(postListJSON) {
     const container = document.querySelector("main");
-    
+
     postListJSON.forEach(postJSON => {
         const template = `
             <section class="bg-white border mb-10">
@@ -141,14 +189,11 @@ function renderPosts(postListJSON) {
                         </p>
                     </div>
                     <p class="uppercase text-gray-500 text-xs">1 day ago</p>
-                    <strong>lizzie</strong>
-                    Here is a comment text text text text text text text text.
-                    </p>
-                    <p class="text-sm mb-3">
-                        <strong>vanek97</strong>
-                        Here is another comment text text text.
-                    </p>
-                    <p class="uppercase text-gray-500 text-xs">1 day ago</p>
+                    
+                    <!-- Render Comments -->
+                    <div class="comments-section" id="comments-section-${postJSON.id}">
+                        ${renderComments(postJSON.comments, postJSON.id)}
+                    </div>
                 </div>
                 <div class="flex justify-between items-center p-3">
                     <div class="flex items-center gap-3 min-w-[80%]">
@@ -159,19 +204,16 @@ function renderPosts(postListJSON) {
                 </div>
             </section>
         `;
-        
-        // Add the template to the container
+
         container.insertAdjacentHTML("beforeend", template);
     });
 
-    // Call the additional functions after all posts are rendered
     attatchBookmarkListeners(postListJSON);
     attachLikeListeners(postListJSON);
 }
 
 //  async Function Declarations
 async function initializeScreen() {
-    // this function is getting invoked when the page first loads:
     token = await getAccessToken(rootURL, username, password);
     showNav();
     await getAndShowData();
@@ -190,11 +232,11 @@ async function getAndShowData() {
 
     if (response.ok) {
         const data = await response.json();
-        console.log(" getAndShowData API Response:", data);  // Console.log to see data being pulled
-        username = data.username;  // Update the username variable with the fetched username
+        console.log(" getAndShowData API Response:", data);  
+        username = data.username;  
         console.log("Username:", username);
         console.log("Profile Image URL:", data.image_url);
-        renderProfile(data);  // Render profile using the returned data
+        renderProfile(data);  
     } else {
         console.error("Failed to fetch profile data:", response.status);
     }
@@ -231,8 +273,8 @@ async function getSuggestions() {
     if (response.ok) {
         const data = await response.json();
         console.log("Suggestions data:", data);
-        renderSuggestions(data); // Render suggested users (for following)
-        renderStories(data);     // Render the same suggestions in the stories panel
+        renderSuggestions(data); 
+        renderStories(data);        
     } else {
         console.error("Failed to fetch suggestions:", response.status)
     }
@@ -256,70 +298,67 @@ async function followUser(username) {
 }
 
 //  Window. functions
-// Handeling bookmarks
-window.createBookmark = async function (postId) {  // Defining createBookmark async function & attatching it to window (to be global)
-    const postData = {post_id: postId}; //  Creates postData object to be passed as API request body
-    // HTTP Post request to /api/bookmarks
+window.createBookmark = async function (postId) {  
+    const postData = {post_id: postId}; 
     const response = await fetch (
-        `${rootURL}/api/bookmarks`,  //  Template literal to construct URL w/ endpoint path
+        `${rootURL}/api/bookmarks`,  
         {
-            //  Option for fetch request
-            method: "POST",  //  Specifying post request method
-            headers: {       //  Setting request headers
-                "Content-Type": "application/json",  //  Specifying request body as JSON format
-                Authorization: `Bearer ${token}`,    //  Including auth token
+            
+            method: "POST",  
+            headers: {       
+                "Content-Type": "application/json",  
+                Authorization: `Bearer ${token}`,    
             },
-            body: JSON.stringify(postData),          //  Setting request body to JSON string rep of postData
+            body: JSON.stringify(postData),
         }
     );
-    const data = await response.json();  //  Parsing JSON response from API
-    console.log(data);                   //  Logs parsed JSON data to browser console
+    const data = await response.json();  
+    console.log(data);
 };
 
-window.toggleBookmark = async function (buttonEl, postJSON) {  //  Declares toggleBookmark function & attatches to window (making global variable)
-    const iconEl = buttonEl.querySelector("i");                //  Retrieving bookmark icon
+window.toggleBookmark = async function (buttonEl, postJSON) {  
+    const iconEl = buttonEl.querySelector("i");                
 
-    console.log("Toggle bookmark for post:", postJSON.id);      //  Console display for API call
+    console.log("Toggle bookmark for post:", postJSON.id);      
 
-    if (postJSON.current_user_bookmark_id) {  //  Checks if user has bookmarked post
-        console.log("Remove bookmark for post:" , postJSON.id);  //  Console display for API call
+    if (postJSON.current_user_bookmark_id) {
+        console.log("Remove bookmark for post:" , postJSON.id);
         const response = await fetch (
-            `${rootURL}/api/bookmarks/${postJSON.current_user_bookmark_id}`,  //  Constructing url to bookmark we want to remove
+            `${rootURL}/api/bookmarks/${postJSON.current_user_bookmark_id}`,
             {
-                method: "DELETE",                        //  Specifying HTTP request as Delete
-                headers: {                               //  Setting required headers
-                    "Content-Type": "application/json",  //  Specifying request body as JSON
-                    Authorization: `Bearer ${token}`,    //  Including auth token
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
             }
         );
-        //  Executes our HTML Delete request
-        console.log("Response from bookmark remove:" , response);  //  Console log for API call
+        console.log("Response from bookmark remove:" , response);
         if (response.ok) {
-            iconEl.classList.remove("fas");            //  Removing 'fas' from the bookmark icon
-            iconEl.classList.add("far");               //  Adding 'far' to the bookmark icon
-            postJSON.current_user_bookmark_id = null;  //  Sets current_user_bookmark_id to NULL
+            iconEl.classList.remove("fas");
+            iconEl.classList.add("far");
+            postJSON.current_user_bookmark_id = null;
         }
-    } else {  //  Creating new bookmark if user hasn't bookmarked a post
-        console.log("Add bookmark for post:", postJSON.id);  //  Console log for API call
+    } else {
+        console.log("Add bookmark for post:", postJSON.id);
         const response = await fetch(
-            `${rootURL}/api/bookmarks/`,                 //  Bookmark creation API endpoint
+            `${rootURL}/api/bookmarks/`,
             {
-                method: "POST",                          //  Specifying HTTP request as Post
-                headers: {                               //  Setting request headers
-                    "Content-Type": "application/json",  //  Specifies request body as JSON
-                    Authorization: `Bearer ${token}`,    //  Including auth token
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({ post_id: postJSON.id }),  //  Setting request body to JSON string w/ post_id for the bookmarked post
+                body: JSON.stringify({ post_id: postJSON.id }),
             }
         );
-        console.log("Bookmark add Response:", response);  //  Console log for API response
-        const data = await response.json();  //  Parsing JSON response body from API Post request then stores in data constant
-        console.log("Bookmark Added:", data);                                //  logs JSON data to browser console
-        if (response.ok)  {                               //  checks if HTTP API response is successful 
-            iconEl.classList.remove("far");               //  removing "far" from the bookmark icon
-            iconEl.classList.add("fas");                  //  adding "fas" to the bookmark icon
-            postJSON.current_user_bookmark_id = data.id;  //  updates postJSON with id of the newly created bookmark
+        console.log("Bookmark add Response:", response);
+        const data = await response.json();
+        console.log("Bookmark Added:", data);
+        if (response.ok)  {
+            iconEl.classList.remove("far");
+            iconEl.classList.add("fas");
+            postJSON.current_user_bookmark_id = data.id;
         }
     }
 };
@@ -331,7 +370,6 @@ window.toggleLike = async function (buttonEl, postJSON) {
     console.log("Toggling like for post:", postJSON.id);
 
     if (postJSON.current_user_like_id) {
-        // Unliking posts
         console.log("Unliking post:", postJSON.id);
         const response = await fetch(
             `${rootURL}/api/likes/${postJSON.current_user_like_id}`,
@@ -347,13 +385,12 @@ window.toggleLike = async function (buttonEl, postJSON) {
         if (response.ok) {
             iconEl.classList.remove("fas");
             iconEl.classList.add("far");
-            iconEl.style.color = ""; // Remove red color on unlike
+            iconEl.style.color = "";
             postJSON.current_user_like_id = null;
             postJSON.likes.length -= 1;
             likeCountEl.textContent = postJSON.likes.length;
         }
     } else {
-        // Liking Posts
         console.log("Liking post:", postJSON.id);
         const response = await fetch(`${rootURL}/api/likes`, {
             method: "POST",
@@ -369,7 +406,7 @@ window.toggleLike = async function (buttonEl, postJSON) {
         if (response.ok) {
             iconEl.classList.remove("far");
             iconEl.classList.add("fas");
-            iconEl.style.color = "red"; // Fill the heart with red on like
+            iconEl.style.color = "red";
             postJSON.current_user_like_id = data.id;
             postJSON.likes.length += 1;
             likeCountEl.textContent = postJSON.likes.length;
