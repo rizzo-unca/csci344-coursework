@@ -1,10 +1,10 @@
 // main2.js
 // more detailed comments will be coming before 12:00pm March 29th
-import { getAccessToken } from "./utilities.js";
-const rootURL = "https://photo-app-secured.herokuapp.com";
-let token = null;
-let username = "ryan";
-let password = "password";
+import { getAccessToken } from "./utilities.js";            //  Gets access token from utilities.js
+const rootURL = "https://photo-app-secured.herokuapp.com";  //  URL to our Photo App API
+let token = null;                                           //  Defining our access token & setting it to null
+let username = "ryan";                                      //  Declaring username for API token access
+let password = "password";                                  //  Declaring password for API token access
 
 //  Function Declirations
 function showNav() {
