@@ -1,21 +1,42 @@
 const ENDPOINT_WIKIPEDIA = "https://en.wikipedia.org/api/rest_v1/page/summary";
 
+//  Defining our function
 async function getWikipediaArticle(searchTerm) {
-    // your code here...
+    //  sending GET request to wikipedia API
+    const response = await fetch(`${ENDPOINT_WIKIPEDIA}/${searchTerm}`);
+    //  Taking API response & storing it in data variable
+    const data = await response.json();
+    //  returning the data
+    return data;
 }
 
 
 
 
 function dataToHTML(wikiArticle) {
-    // your code here...
+    //  Getting our thumbnail from the wikiArticle object
+    const thumbnail = wikiArticle.thumbnail.source
+    //  Getting out title form the wikiArticle object
+    const title = wikiArticle.title;
+    //  Getting the extract_html property from the wikiArticle object
+    const extractHTML = wikiArticle.extract_html;
+
+    //  Constructing HTML Card to display the information we've gathered from earlier
+    return `
+    <section class="card">
+        <img src="${thumbnail}">
+        <div>
+            <h2>${title}</h2>
+            ${extractHTML}
+        </div>
+    </section>`;
 }
 
 
 
 // Uncomment these functions when you're ready to test:
-// testGetWikipediaArticles(); // Part A
-// testDisplayArticles(); // Part B
+testGetWikipediaArticles(); // Part A
+testDisplayArticles(); // Part B
 
 
 
