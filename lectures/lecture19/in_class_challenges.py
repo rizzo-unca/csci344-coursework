@@ -38,22 +38,51 @@ posts = [post1, post2, post3, post4, post5, post6, post7, post8, post9, post10]
 # 5. Returns a list of image_urls of the posts (list of strings)
 def print_dictionary_of_user(users):
     for user in users:
-        pprint(user.to__dict)
+        pprint(user.__dict__)
 print_dictionary_of_user(users)
 
 def get_usernames(users):
     return[user.username for user in users]
 
 def get_active_users(users):
-    return 
+    return [user for user in users if user.is_active]
 
 ################################
 # In-Class Challenges (posts): #
 ################################
 # For each of the tasks below, write a function that performs the requested operation:
 # 1. Prints a dictionary representation of each post to the console.
+def print_dictionary_of_posts(posts):
+    for post in posts:
+        pprint(post.__dict__)
 # 2. Returns a list of posts' image_urls (list of strings)
+def get_post_image_urls(posts):
+    return [post.image_url for post in posts]
 # 3. Returns a distinct list of posts' authors (list of User objects)
+def get_distinct_post_authors(posts):
+    seen = set()
+    distinct_authors = []
+    for post in posts:
+        if post.user.username not in seen:
+            seen.add(post.user.username)
+            distinct_authors.append(post.user)
+    return distinct_authors
 # 4. Returns all of the post objects that belong to a given user (e.g., user3)  (list of Post objects)
+def get_posts_by_user(posts, target_user):
+    return [post for post in posts if post.user == target_user]
 
+# results
+print("Getting Usernames")
+print(get_usernames(users))
 
+print("\nGetting Active Users")
+print([user.username for user in get_active_users(users)])
+
+print("\nGetting Post Image URL's")
+print(get_post_image_urls(posts))
+
+print("\nThis is just a spaceholder")
+print([user.username for user in get_distinct_post_authors(posts)])
+
+print("\nThis is another placeholder")
+print(get_posts_by_user(posts, user3))
